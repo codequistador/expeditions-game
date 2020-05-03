@@ -1,365 +1,317 @@
 export const deck = [
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "bet",
     value: null,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "bet",
     value: null,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "bet",
     value: null,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 2,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 3,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 4,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 5,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 6,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 7,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 8,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 9,
   },
   {
     color: "blue",
-    name: "Pfeifferhorn",
     type: "number",
     value: 10,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "bet",
     value: null,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "bet",
     value: null,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "bet",
     value: null,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 2,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 3,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 4,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 5,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 6,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 7,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 8,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 9,
   },
   {
     color: "red",
-    name: "Kessler",
     type: "number",
     value: 10,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "bet",
     value: null,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "bet",
     value: null,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "bet",
     value: null,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 2,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 3,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 4,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 5,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 6,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 7,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 8,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 9,
   },
   {
     color: "yellow",
-    name: "Lone Peak",
     type: "number",
     value: 10,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "bet",
     value: null,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "bet",
     value: null,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "bet",
     value: null,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 2,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 3,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 4,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 5,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 6,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 7,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 8,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 9,
   },
   {
     color: "white",
-    name: "Thunder Mountain",
     type: "number",
     value: 10,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "bet",
     value: null,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "bet",
     value: null,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "bet",
     value: null,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 2,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 3,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 4,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 5,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 6,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 7,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 8,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 9,
   },
   {
     color: "green",
-    name: "Timpanogos",
     type: "number",
     value: 10,
   },
 ];
 
+// ToDo should this remove the card from the deck?
 export const getRandomCard = (deck) =>
   deck[Math.floor(Math.random() * deck.length)];
+
+// ToDo should pull from remaining deck... not full deck
+export const getInitialHand = (deck) => {
+  const hand = [];
+
+  for (var i = 0; i < 8; i++) {
+    hand.push(getRandomCard(deck));
+  }
+
+  return hand;
+};

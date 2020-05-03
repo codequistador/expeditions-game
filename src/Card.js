@@ -23,7 +23,7 @@ const Value = styled.div`
   align-items: center;
   position: absolute;
   top: 5px;
-  right: 5px;
+  left: 5px;
 `;
 
 class Card extends React.Component {

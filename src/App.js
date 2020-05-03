@@ -1,12 +1,9 @@
 import React from "react";
-import { deck, getRandomCard } from "./constants/deck";
-import Card from "./Card";
+import Hand from "./Hand";
+import "@atlaskit/css-reset";
 
 function App() {
-  const card = getRandomCard(deck);
-  return (
-    <Card color={card.color} value={card.type !== "bet" ? card.value : "B"} />
-  );
+  return <Hand />;
 }
 
 export default App;
