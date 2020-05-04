@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { deck, getInitialHand } from "./constants/deck";
-import Card from "./Card";
+import Card from "./card";
 
 const Wrapper = styled.div`
   display: flex;
