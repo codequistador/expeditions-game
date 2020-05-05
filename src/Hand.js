@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { deck, getInitialHand } from "./constants/deck";
 import Card from "./card";
 
 const Wrapper = styled.div`
@@ -9,10 +8,8 @@ const Wrapper = styled.div`
 `;
 
 class Hand extends React.Component {
-  state = { hand: getInitialHand(deck) };
-
   renderCards = () => {
-    return this.state.hand.map((card, i) => {
+    return this.props.cards.map((card, i) => {
       return (
         <Card
           key={i}

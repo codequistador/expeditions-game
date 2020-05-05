@@ -1,4 +1,5 @@
 import { deck as DECK } from "./constants/deck";
+import { PlayerView } from "boardgame.io/core";
 
 export function getInitialHand(deck) {
   const hand = [];
@@ -35,6 +36,7 @@ export function getInitialState(ctx) {
 
 const LostSummits = {
   setup: getInitialState,
+  playerView: PlayerView.STRIP_SECRETS,
 };
 
 export default LostSummits;
