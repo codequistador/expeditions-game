@@ -29,7 +29,7 @@ const Value = styled.div`
 class Card extends React.Component {
   render() {
     return (
-      <Wrapper color={this.props.color}>
+      <Wrapper onClick={this.props.playCard} color={this.props.color}>
         <Value>{this.props.value}</Value>
       </Wrapper>
     );
