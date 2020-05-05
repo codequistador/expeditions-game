@@ -15,6 +15,8 @@ function App() {
   return (
     <div>
       <LostSummitsClient playerID="0" />
+      <br />
+      <br />
       <LostSummitsClient playerID="1" />
     </div>
   );

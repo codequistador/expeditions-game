@@ -9,7 +9,10 @@ const Wrapper = styled.div`
 
 class Hand extends React.Component {
   renderCards = () => {
-    return this.props.cards.map((card, i) => {
+    const cards = this.props.cards.sort((a, b) => {
+      return a.id - b.id;
+    });
+    return cards.map((card, i) => {
       return (
         <Card
           key={i}
