@@ -1,4 +1,4 @@
-import { deck as DECK } from "./constants/deck";
+import { deck as LostSummitsDeck } from "./constants/deck";
 import { PlayerView } from "boardgame.io/core";
 
 export function getInitialHand(deck) {
@@ -12,15 +12,27 @@ export function getInitialHand(deck) {
   return hand;
 }
 
+const colorArray = [
+  { color: "blue", cards: [] },
+  { color: "red", cards: [] },
+  { color: "yellow", cards: [] },
+  { color: "white", cards: [] },
+  { color: "green", cards: [] },
+];
+
 export function getInitialState(ctx) {
   const G = {
     deck: [],
     cardsInDeck: [],
-    discard: [],
+    discard: colorArray,
+    hikes: {
+      0: colorArray,
+      1: colorArray,
+    },
     players: {},
   };
 
-  G.deck = G.deck.concat(DECK);
+  G.deck = G.deck.concat(LostSummitsDeck);
   G.deck = ctx.random.Shuffle(G.deck);
 
   for (let j = 0; j < ctx.numPlayers; j++) {

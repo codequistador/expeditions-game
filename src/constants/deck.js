@@ -360,18 +360,3 @@ export const deck = [
     id: 60,
   },
 ];
-
-// ToDo should this remove the card from the deck?
-export const getRandomCard = (deck) =>
-  deck[Math.floor(Math.random() * deck.length)];
-
-// ToDo should pull from remaining deck... not full deck
-export const getInitialHand = (deck) => {
-  const hand = [];
-
-  for (var i = 0; i < 8; i++) {
-    hand.push(getRandomCard(deck));
-  }
-
-  return hand;
-};
