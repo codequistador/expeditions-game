@@ -1,4 +1,5 @@
 import React from "react";
+import Card from "./card";
 import styled from "styled-components";
 
 const DiscardPile = styled.div`
@@ -12,7 +13,24 @@ const DiscardPile = styled.div`
 class DiscardPiles extends React.Component {
   render() {
     return this.props.piles.map((pile, i) => {
-      return <DiscardPile key={i}>{pile.color}</DiscardPile>;
+      const renderDiscardedCards = () => {
+        if (pile.cards.length > 0) {
+          const topCard = pile.cards[0];
+          return (
+            <Card
+              key={i}
+              color={topCard.color}
+              value={topCard.type !== "bet" ? topCard.value : "B"}
+            />
+          );
+        }
+      };
+      return (
+        <DiscardPile key={i}>
+          {pile.color}
+          {renderDiscardedCards()}
+        </DiscardPile>
+      );
     });
   }
 }

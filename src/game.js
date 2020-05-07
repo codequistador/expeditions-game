@@ -47,31 +47,31 @@ export function getInitialState(ctx) {
   return G;
 }
 
-function PlayCard(G, ctx, id) {
-  G.hand[ctx.currentPlayer]--;
-  G.discard++;
-}
+// function PlayCard(G, ctx, id) {
+//   G.hand[ctx.currentPlayer]--;
+//   G.discard++;
+// }
 
-function DrawCard(G, ctx, id) {
-  G.deck--;
-  G.hand[ctx.currentPlayer]++;
-  ctx.events.endTurn();
-}
+// function DrawCard(G, ctx, id) {
+//   G.deck--;
+//   G.hand[ctx.currentPlayer]++;
+//   ctx.events.endTurn();
+// }
 
 const LostSummits = {
   setup: getInitialState,
   playerView: PlayerView.STRIP_SECRETS,
-  turn: {
-    stages: {
-      play: {
-        moves: { PlayCard },
-        next: "discard",
-      },
-      discard: {
-        moves: { DrawCard },
-      },
-    },
-  },
+  // turn: {
+  //   stages: {
+  //     play: {
+  //       moves: { PlayCard },
+  //       next: "discard",
+  //     },
+  //     discard: {
+  //       moves: { DrawCard },
+  //     },
+  //   },
+  // },
 };
 
 export default LostSummits;
