@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 100px;
+  height: 150px;
   border: 1px solid black;
   border-radius: 4px;
   background-color: ${(props) => `${props.color}`};
