@@ -2,12 +2,18 @@ import React from "react";
 import Card from "./card";
 import styled from "styled-components";
 
+const DiscardWrapper = styled.div`
+  display: flex;
+  width: 75%;
+  justify-content: space-around;
+`;
+
 const DiscardPile = styled.div`
   background-color: white;
   border: 1px solid black;
   width: 132px;
   height: 182px;
-  display: inline-block;
+  display: inline-flex;
   margin: 8px;
   position: relative;
   padding: 40px 8px 0 8px;
@@ -30,7 +36,7 @@ const Value = styled.div`
 
 class DiscardPiles extends React.Component {
   render() {
-    return renderDiscardedCards(this.props);
+    return <DiscardWrapper>{renderDiscardedCards(this.props)}</DiscardWrapper>;
   }
 }
 
