@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "./card";
+import { renderIcon } from "./render-icon";
 import styled from "styled-components";
 
 const DiscardWrapper = styled.div`
@@ -22,7 +23,6 @@ const DiscardPile = styled.div`
 `;
 
 const Value = styled.div`
-  border: 1px solid black;
   border-radius: 2px;
   background-color: white;
   color: black;
@@ -31,9 +31,16 @@ const Value = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 5px;
-  left: 5px;
+  top: 8px;
+  left: 8px;
   padding: 0 4px;
+`;
+
+const Icon = styled.div`
+  color: black;
+  position: absolute;
+  top: 8px;
+  right: 14px;
 `;
 
 class DiscardPiles extends React.Component {
@@ -59,6 +66,7 @@ const renderDiscardedCards = (props) =>
     return (
       <DiscardPile key={i} color={pile.color}>
         <Value>{pile.color}</Value>
+        <Icon>{renderIcon(pile.color)}</Icon>
         {cards()}
       </DiscardPile>
     );

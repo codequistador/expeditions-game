@@ -123,7 +123,7 @@ export function getInitialState(ctx) {
     deck: [],
     cardsInDeck: [],
     discard: colorArray,
-    hikes: {
+    expeditions: {
       0: colorArray,
       1: colorArray,
     },

@@ -1,7 +1,7 @@
 import React from "react";
 import Hand from "./hand";
 import DiscardPiles from "./discard-piles";
-import Hikes from "./hikes";
+import Expeditions from "./expeditions";
 import styled from "styled-components";
 
 const HandWrapper = styled.div`
@@ -20,13 +20,17 @@ class LostSummitsBoard extends React.Component {
     const opponentId = playerId === "1" ? "0" : "1";
     const cardsInDeck = this.props.G.cardsInDeck;
     const discardPiles = this.props.G.discard;
-    const hikes = this.props.G.hikes;
+    const expeditions = this.props.G.expeditions;
 
     return (
       <div>
-        <Hikes player={opponentId} hikes={hikes[opponentId]} isOpponent />
+        <Expeditions
+          player={opponentId}
+          expeditions={expeditions[opponentId]}
+          isOpponent
+        />
         <DiscardPiles piles={discardPiles} />
-        <Hikes player={playerId} hikes={hikes[playerId]} />
+        <Expeditions player={playerId} expeditions={expeditions[playerId]} />
         <HandWrapper>
           {Object.keys(players).map((playerIndex) => (
             <div key={playerIndex}>

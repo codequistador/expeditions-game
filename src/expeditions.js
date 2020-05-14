@@ -2,13 +2,13 @@ import React from "react";
 import Card from "./card";
 import styled from "styled-components";
 
-const HikesWrapper = styled.div`
+const ExpeditionsWrapper = styled.div`
   display: flex;
   width: 75%;
   justify-content: space-around;
 `;
 
-const Hike = styled.div`
+const Expedition = styled.div`
   border-radius: 6px;
   width: 100px;
   margin: 0 8px;
@@ -22,17 +22,19 @@ const Hike = styled.div`
   }
 `;
 
-class Hikes extends React.Component {
+class Expeditions extends React.Component {
   render() {
-    return <HikesWrapper>{renderHikeDropZones(this.props)}</HikesWrapper>;
+    return (
+      <ExpeditionsWrapper>{renderHikeDropZones(this.props)}</ExpeditionsWrapper>
+    );
   }
 }
 
 const renderHikeDropZones = (props) =>
-  props.hikes.map((hike, i) => {
+  props.expeditions.map((expedition, i) => {
     return (
-      <Hike isOpponent={props.isOpponent}>
-        {hike.cards.map((card, i) => {
+      <Expedition isOpponent={props.isOpponent}>
+        {expedition.cards.map((card, i) => {
           return (
             <Card
               key={i}
@@ -42,8 +44,8 @@ const renderHikeDropZones = (props) =>
             />
           );
         })}
-      </Hike>
+      </Expedition>
     );
   });
 
-export default Hikes;
+export default Expeditions;
