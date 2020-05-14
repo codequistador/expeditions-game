@@ -13,8 +13,106 @@ export function getInitialHand(deck) {
 }
 
 const colorArray = [
-  { color: "blue", cards: [] },
-  { color: "red", cards: [] },
+  {
+    color: "blue",
+    cards: [
+      {
+        color: "blue",
+        type: "bet",
+        value: null,
+        id: 2,
+      },
+      {
+        color: "blue",
+        type: "bet",
+        value: null,
+        id: 3,
+      },
+      {
+        color: "blue",
+        type: "number",
+        value: 2,
+        id: 4,
+      },
+    ],
+  },
+  {
+    color: "red",
+    cards: [
+      {
+        color: "red",
+        type: "bet",
+        value: null,
+        id: 13,
+      },
+      {
+        color: "red",
+        type: "bet",
+        value: null,
+        id: 14,
+      },
+      {
+        color: "red",
+        type: "bet",
+        value: null,
+        id: 15,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 2,
+        id: 16,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 3,
+        id: 17,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 4,
+        id: 18,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 5,
+        id: 19,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 6,
+        id: 20,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 7,
+        id: 21,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 8,
+        id: 22,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 9,
+        id: 23,
+      },
+      {
+        color: "red",
+        type: "number",
+        value: 10,
+        id: 24,
+      },
+    ],
+  },
   { color: "yellow", cards: [] },
   { color: "white", cards: [] },
   { color: "green", cards: [] },

@@ -24,7 +24,7 @@ class LostSummitsBoard extends React.Component {
 
     return (
       <div>
-        <Hikes player={opponentId} hikes={hikes[opponentId]} />
+        <Hikes player={opponentId} hikes={hikes[opponentId]} isOpponent />
         <DiscardPiles piles={discardPiles} />
         <Hikes player={playerId} hikes={hikes[playerId]} />
         <HandWrapper>

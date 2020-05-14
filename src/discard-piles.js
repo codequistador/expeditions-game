@@ -9,12 +9,14 @@ const DiscardWrapper = styled.div`
 `;
 
 const DiscardPile = styled.div`
+  box-style: border-box;
   background-color: white;
   border: 1px solid black;
-  width: 132px;
-  height: 182px;
+  border-radius: 6px;
+  width: 100px;
+  height: 160px;
   display: inline-flex;
-  margin: 8px;
+  margin: 0 8px;
   position: relative;
   padding: 40px 8px 0 8px;
 `;

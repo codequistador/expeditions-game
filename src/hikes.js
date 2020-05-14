@@ -9,11 +9,17 @@ const HikesWrapper = styled.div`
 `;
 
 const Hike = styled.div`
-  background-color: white;
-  border: 1px solid black;
-  width: 132px;
-  margin: 8px;
-  padding: 8px;
+  border-radius: 6px;
+  width: 100px;
+  margin: 0 8px;
+  padding: 8px 8px 125px 8px;
+  display: flex;
+  flex-direction: ${(props) =>
+    `${props.isOpponent ? "column-reverse" : "column"}`};
+
+  & > * {
+    margin-bottom: -120px;
+  }
 `;
 
 class Hikes extends React.Component {
@@ -24,7 +30,20 @@ class Hikes extends React.Component {
 
 const renderHikeDropZones = (props) =>
   props.hikes.map((hike, i) => {
-    return <Hike>{hike.color}</Hike>;
+    return (
+      <Hike isOpponent={props.isOpponent}>
+        {hike.cards.map((card, i) => {
+          return (
+            <Card
+              key={i}
+              isOpponent={props.isOpponent}
+              color={card.color}
+              value={card.type !== "bet" ? card.value : "B"}
+            />
+          );
+        })}
+      </Hike>
+    );
   });
 
 export default Hikes;
