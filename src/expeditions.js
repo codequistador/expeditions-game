@@ -25,12 +25,14 @@ const Expedition = styled.div`
 class Expeditions extends React.Component {
   render() {
     return (
-      <ExpeditionsWrapper>{renderHikeDropZones(this.props)}</ExpeditionsWrapper>
+      <ExpeditionsWrapper>
+        {renderExpeditionDropZones(this.props)}
+      </ExpeditionsWrapper>
     );
   }
 }
 
-const renderHikeDropZones = (props) =>
+const renderExpeditionDropZones = (props) =>
   props.expeditions.map((expedition, i) => {
     return (
       <Expedition isOpponent={props.isOpponent}>
