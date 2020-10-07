@@ -69,7 +69,7 @@ const renderButtons = (props) => {
     return (
       <>
         <Button onClick={() => props.moves.playCard(props.color)}>Play</Button>
-        <Button onClick={() => props.moves.discard()}>Discard</Button>
+        <Button onClick={() => props.moves.discard(props.id)}>Discard</Button>
       </>
     );
   }

@@ -48,15 +48,18 @@ export function getInitialState(ctx) {
 }
 
 function playCard(G, ctx, id) {
-  // G.hand--;
+  // G.hand[ctx.currentPlayer]--;
   // G.discard++;
   console.log("playCard called");
   ctx.events.setStage("draw");
 }
 
 function discard(G, ctx, id) {
-  // G.hand[ctx.currentPlayer]--;
-  // G.discard++;
+  // for (var i = 0; i < G.discard.length; i++) {
+  //   if (G.discard[i].color === id) {
+  //     G.discard[i].cards.push();
+  //   }
+  // }
   console.log("Discard Called");
   ctx.events.setStage("draw");
 }
