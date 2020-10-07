@@ -10,6 +10,10 @@ const Wrapper = styled.div`
   border-radius: 4px;
   background-color: ${(props) => `${props.color}`};
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Value = styled.div`
@@ -39,6 +43,14 @@ const Icon = styled.div`
   ${(props) => `${props.isOpponent && "transform: rotate(180deg);"}`}
 `;
 
+const Button = styled.button`
+  background: white;
+  color: black;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 4px;
+`;
+
 class Card extends React.Component {
   render() {
     const isOpponent = this.props.isOpponent;
@@ -46,9 +58,27 @@ class Card extends React.Component {
       <Wrapper isOpponent={isOpponent} color={this.props.color}>
         <Value isOpponent={isOpponent}>{this.props.value}</Value>
         <Icon isOpponent={isOpponent}>{renderIcon(this.props.color)}</Icon>
+        {renderButtons(this.props)}
       </Wrapper>
     );
   }
 }
+
+const renderButtons = (props) => {
+  if (props.location === "hand") {
+    return (
+      <>
+        <Button onClick={() => props.moves.playCard(props.color)}>Play</Button>
+        <Button onClick={() => props.moves.discard()}>Discard</Button>
+      </>
+    );
+  }
+  if (props.location === "discard") {
+    return <Button onClick={() => {}}>Draw</Button>;
+  }
+  if (props.location === "") {
+    return;
+  }
+};
 
 export default Card;

@@ -21,6 +21,8 @@ class LostSummitsBoard extends React.Component {
     const cardsInDeck = this.props.G.cardsInDeck;
     const discardPiles = this.props.G.discard;
     const expeditions = this.props.G.expeditions;
+    // const playCard = this.props.moves.playCard;
+    // const drawFromDeck = this.props.moves.drawFromDeck;
 
     return (
       <div>
@@ -30,12 +32,18 @@ class LostSummitsBoard extends React.Component {
           isOpponent
         />
         <DiscardPiles piles={discardPiles} />
+        <button onClick={() => this.props.moves.drawFromDeck()}>
+          Draw from deck
+        </button>
         <Expeditions player={playerId} expeditions={expeditions[playerId]} />
         <HandWrapper>
           {Object.keys(players).map((playerIndex) => (
             <div key={playerIndex}>
               Player {playerIndex}
-              <Hand cards={players[playerIndex].hand} />
+              <Hand
+                cards={players[playerIndex].hand}
+                moves={this.props.moves}
+              />
             </div>
           ))}
         </HandWrapper>

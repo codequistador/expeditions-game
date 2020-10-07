@@ -26,7 +26,7 @@ const Value = styled.div`
   border-radius: 2px;
   background-color: white;
   color: black;
-  font-size: 18px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,6 +58,7 @@ const renderDiscardedCards = (props) =>
           <Card
             key={i}
             color={topCard.color}
+            location="discard"
             value={topCard.type !== "bet" ? topCard.value : "B"}
           />
         );

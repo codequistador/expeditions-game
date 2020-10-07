@@ -13,106 +13,8 @@ export function getInitialHand(deck) {
 }
 
 const colorArray = [
-  {
-    color: "blue",
-    cards: [
-      {
-        color: "blue",
-        type: "bet",
-        value: null,
-        id: 2,
-      },
-      {
-        color: "blue",
-        type: "bet",
-        value: null,
-        id: 3,
-      },
-      {
-        color: "blue",
-        type: "number",
-        value: 2,
-        id: 4,
-      },
-    ],
-  },
-  {
-    color: "red",
-    cards: [
-      {
-        color: "red",
-        type: "bet",
-        value: null,
-        id: 13,
-      },
-      {
-        color: "red",
-        type: "bet",
-        value: null,
-        id: 14,
-      },
-      {
-        color: "red",
-        type: "bet",
-        value: null,
-        id: 15,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 2,
-        id: 16,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 3,
-        id: 17,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 4,
-        id: 18,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 5,
-        id: 19,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 6,
-        id: 20,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 7,
-        id: 21,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 8,
-        id: 22,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 9,
-        id: 23,
-      },
-      {
-        color: "red",
-        type: "number",
-        value: 10,
-        id: 24,
-      },
-    ],
-  },
+  { color: "blue", cards: [] },
+  { color: "red", cards: [] },
   { color: "yellow", cards: [] },
   { color: "white", cards: [] },
   { color: "green", cards: [] },
@@ -145,31 +47,43 @@ export function getInitialState(ctx) {
   return G;
 }
 
-// function PlayCard(G, ctx, id) {
-//   G.hand[ctx.currentPlayer]--;
-//   G.discard++;
-// }
+function playCard(G, ctx, id) {
+  // G.hand--;
+  // G.discard++;
+  console.log("playCard called");
+  ctx.events.setStage("draw");
+}
 
-// function DrawCard(G, ctx, id) {
-//   G.deck--;
-//   G.hand[ctx.currentPlayer]++;
-//   ctx.events.endTurn();
-// }
+function discard(G, ctx, id) {
+  // G.hand[ctx.currentPlayer]--;
+  // G.discard++;
+  console.log("Discard Called");
+  ctx.events.setStage("draw");
+}
+
+function drawFromDeck(G, ctx, id) {
+  console.log("DrawFromDeck Called");
+  ctx.events.endTurn();
+}
+
+function drawFromDiscard(G, ctx, id) {
+  // G.deck--;
+  // G.hand[ctx.currentPlayer]++;
+  console.log("DrawFromDiscard Called");
+  ctx.events.endTurn();
+}
 
 const LostSummits = {
   setup: getInitialState,
   playerView: PlayerView.STRIP_SECRETS,
-  // turn: {
-  //   stages: {
-  //     play: {
-  //       moves: { PlayCard },
-  //       next: "discard",
-  //     },
-  //     discard: {
-  //       moves: { DrawCard },
-  //     },
-  //   },
-  // },
+  moves: { playCard, discard },
+  turn: {
+    stages: {
+      draw: {
+        moves: { drawFromDeck, drawFromDiscard },
+      },
+    },
+  },
 };
 
 export default LostSummits;

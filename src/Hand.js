@@ -17,7 +17,9 @@ class Hand extends React.Component {
         <Card
           key={i}
           color={card.color}
+          location="hand"
           value={card.type !== "bet" ? card.value : "B"}
+          moves={this.props.moves}
         />
       );
     });
