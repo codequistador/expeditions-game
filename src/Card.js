@@ -68,13 +68,13 @@ const renderButtons = (props) => {
   if (props.location === "hand") {
     return (
       <>
-        <Button onClick={() => props.moves.playCard(props.color)}>Play</Button>
-        <Button onClick={() => props.moves.discard(props.id)}>Discard</Button>
+        <Button onClick={props.handlePlay}>Play</Button>
+        <Button onClick={props.handleDiscard}>Discard</Button>
       </>
     );
   }
   if (props.location === "discard") {
-    return <Button onClick={() => {}}>Draw</Button>;
+    return <Button onClick={props.handleDraw}>Draw</Button>;
   }
   if (props.location === "") {
     return;

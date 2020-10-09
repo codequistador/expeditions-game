@@ -21,7 +21,7 @@ const colorArray = [
 ];
 
 export function getInitialState(ctx) {
-  const G = {
+  let G = {
     deck: [],
     cardsInDeck: [],
     discard: colorArray,
@@ -48,20 +48,38 @@ export function getInitialState(ctx) {
 }
 
 function playCard(G, ctx, id) {
+  const cardColor = G.players[ctx.currentPlayer].hand[id].color;
   // G.hand[ctx.currentPlayer]--;
   // G.discard++;
-  console.log("playCard called");
+  console.log("playCard called", cardColor);
   ctx.events.setStage("draw");
 }
 
 function discard(G, ctx, id) {
-  // for (var i = 0; i < G.discard.length; i++) {
-  //   if (G.discard[i].color === id) {
-  //     G.discard[i].cards.push();
-  //   }
-  // }
-  console.log("Discard Called");
+  let playerHand = [...G.players[ctx.currentPlayer].hand];
+  // let discardPiles = [...G.discard];
+  // const discardedCard = playerHand[id];
+  // const discardedCardColor = discardedCard.color;
+
+  // let discardPile = discardPiles.find((el) => el.color === discardedCardColor);
+
+  // // Move the card to the appropriate discard pile
+  // discardPile.cards.unshift(discardedCard);
+
+  // Remove the card from hand
+  playerHand.splice(id, 1);
+
   ctx.events.setStage("draw");
+
+  return {
+    ...G,
+    players: {
+      ...G.players,
+      [ctx.currentPlayer]: {
+        hand: playerHand,
+      },
+    },
+  };
 }
 
 function drawFromDeck(G, ctx, id) {

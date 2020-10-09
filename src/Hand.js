@@ -20,7 +20,8 @@ class Hand extends React.Component {
           color={card.color}
           location="hand"
           value={card.type !== "bet" ? card.value : "B"}
-          moves={this.props.moves}
+          handlePlay={() => this.props.moves.playCard(i)}
+          handleDiscard={() => this.props.moves.discard(i)}
         />
       );
     });
