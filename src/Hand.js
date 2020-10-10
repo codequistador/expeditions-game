@@ -1,8 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import Card from "./card";
+import Deck from "./deck";
 
 const Wrapper = styled.div`
+  width: 75%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+
+const CardsWrapper = styled.div`
   display: flex;
   flex-direction: row;
 `;
@@ -19,7 +27,7 @@ class Hand extends React.Component {
           id={card.id}
           color={card.color}
           location="hand"
-          value={card.type !== "bet" ? card.value : "B"}
+          value={card.type !== "bet" ? card.value : "Bet"}
           handlePlay={() => this.props.moves.playCard(i, card)}
           handleDiscard={() => this.props.moves.discard(i, card)}
         />
@@ -28,7 +36,15 @@ class Hand extends React.Component {
   };
 
   render() {
-    return <Wrapper>{this.renderCards()}</Wrapper>;
+    return (
+      <Wrapper>
+        <CardsWrapper>{this.renderCards()}</CardsWrapper>
+        <Deck
+          cardsInDeck={this.props.cardsInDeck}
+          handleDraw={() => this.props.handleDrawFromDeck()}
+        />
+      </Wrapper>
+    );
   }
 }
 

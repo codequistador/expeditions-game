@@ -5,7 +5,7 @@ import Expeditions from "./expeditions";
 import styled from "styled-components";
 
 const HandWrapper = styled.div`
-  background-color: pink;
+  margin-bottom: 20px;
 `;
 
 const Deck = styled.div`
@@ -43,9 +43,6 @@ class LostSummitsBoard extends React.Component {
           handleDraw={this.props.moves.drawFromDiscard}
           discardedCardID={discardedCardID}
         />
-        <button onClick={() => this.props.moves.drawFromDeck()}>
-          Draw from deck
-        </button>
         <Expeditions player={playerId} expeditions={expeditions[playerId]} />
         <HandWrapper>
           {Object.keys(players).map((playerIndex) => (
@@ -53,6 +50,8 @@ class LostSummitsBoard extends React.Component {
               Player {playerIndex}
               <Hand
                 cards={players[playerIndex].hand}
+                cardsInDeck={cardsInDeck}
+                handleDrawFromDeck={this.props.moves.drawFromDeck}
                 moves={this.props.moves}
               />
             </div>

@@ -17,18 +17,18 @@ const Wrapper = styled.div`
 `;
 
 const Value = styled.div`
-  border: 1px solid black;
   border-radius: 2px;
   box-sizing: border-box;
   background-color: white;
   color: black;
   font-size: 14px;
   font-weight: bold;
-  width: 20px;
+  width: auto;
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 4px;
   position: absolute;
   ${(props) => `${props.isOpponent ? "bottom: 5px;" : "top: 5px;"}`}
   ${(props) => `${props.isOpponent ? "right: 5px;" : "left: 5px;"}`}
