@@ -51,7 +51,7 @@ class DiscardPiles extends React.Component {
 
 const renderDiscardedCards = (props) =>
   props.piles.map((pile, i) => {
-    const cards = () => {
+    const renderTopCard = () => {
       if (pile.cards.length > 0) {
         const topCard = pile.cards[0];
         return (
@@ -68,7 +68,7 @@ const renderDiscardedCards = (props) =>
       <DiscardPile key={i} color={pile.color}>
         <Value>{pile.color}</Value>
         <Icon>{renderIcon(pile.color)}</Icon>
-        {cards()}
+        {renderTopCard()}
       </DiscardPile>
     );
   });

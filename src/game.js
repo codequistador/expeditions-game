@@ -23,7 +23,6 @@ const colorArray = [
 export function getInitialState(ctx) {
   let G = {
     deck: [],
-    cardsInDeck: [],
     discard: colorArray,
     expeditions: {
       0: colorArray,
@@ -42,29 +41,25 @@ export function getInitialState(ctx) {
     };
   }
 
-  G.cardsInDeck = G.deck.length;
-
   return G;
 }
 
 function playCard(G, ctx, id) {
-  const cardColor = G.players[ctx.currentPlayer].hand[id].color;
   // G.hand[ctx.currentPlayer]--;
   // G.discard++;
-  console.log("playCard called", cardColor);
+  console.log("playCard called");
   ctx.events.setStage("draw");
 }
 
 function discard(G, ctx, id) {
   let playerHand = [...G.players[ctx.currentPlayer].hand];
-  // let discardPiles = [...G.discard];
   // const discardedCard = playerHand[id];
   // const discardedCardColor = discardedCard.color;
 
-  // let discardPile = discardPiles.find((el) => el.color === discardedCardColor);
-
-  // // Move the card to the appropriate discard pile
-  // discardPile.cards.unshift(discardedCard);
+  // let discard = [...G.discard];
+  // discard
+  //   .find((e) => e.color === discardedCardColor)
+  //   .cards.unshift(discardedCard);
 
   // Remove the card from hand
   playerHand.splice(id, 1);
@@ -73,6 +68,7 @@ function discard(G, ctx, id) {
 
   return {
     ...G,
+    // discard,
     players: {
       ...G.players,
       [ctx.currentPlayer]: {
@@ -83,8 +79,22 @@ function discard(G, ctx, id) {
 }
 
 function drawFromDeck(G, ctx, id) {
-  console.log("DrawFromDeck Called");
+  let playerHand = [...G.players[ctx.currentPlayer].hand];
+  let deck = [...G.deck];
+  const card = deck.pop();
+  playerHand.push(card);
+
   ctx.events.endTurn();
+  return {
+    ...G,
+    deck,
+    players: {
+      ...G.players,
+      [ctx.currentPlayer]: {
+        hand: playerHand,
+      },
+    },
+  };
 }
 
 function drawFromDiscard(G, ctx, id) {

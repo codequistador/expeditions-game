@@ -18,11 +18,9 @@ class LostSummitsBoard extends React.Component {
     const players = this.props.G.players;
     const playerId = this.props.playerID;
     const opponentId = playerId === "1" ? "0" : "1";
-    const cardsInDeck = this.props.G.cardsInDeck;
+    const cardsInDeck = this.props.G.deck.length;
     const discardPiles = this.props.G.discard;
     const expeditions = this.props.G.expeditions;
-    // const playCard = this.props.moves.playCard;
-    // const drawFromDeck = this.props.moves.drawFromDeck;
 
     return (
       <div>
