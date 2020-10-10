@@ -30,6 +30,7 @@ export function getInitialState(ctx) {
       1: colorArray,
     },
     players: {},
+    lastMove: "",
   };
 
   G.deck = G.deck.concat(LostSummitsDeck);
@@ -53,6 +54,8 @@ function playCard(G, ctx, id, card) {
   );
   const expeditionCards = expeditionPile.cards;
   const length = expeditionCards.length;
+
+  // Only allow cards to be added in ascending order
   if (length > 0) {
     if (expeditionCards[length - 1].id > card.id) {
       return INVALID_MOVE;
@@ -66,6 +69,10 @@ function playCard(G, ctx, id, card) {
   playerHand.splice(id, 1);
 
   currentPlayer.hand = playerHand;
+
+  G.lastMove = `Player ${[ctx.currentPlayer].toString()} played a ${
+    card.color
+  } ${card.value != null ? card.value : card.type}`;
 
   ctx.events.setStage("draw");
 }
@@ -83,6 +90,10 @@ function discard(G, ctx, id, card) {
   playerHand.splice(id, 1);
 
   currentPlayer.hand = playerHand;
+
+  G.lastMove = `Player ${[ctx.currentPlayer].toString()} discarded a ${
+    card.color
+  } ${card.value != null ? card.value : card.type}`;
 
   ctx.events.setStage("draw");
 }
@@ -108,10 +119,6 @@ function drawFromDeck(G, ctx) {
 function drawFromDiscard(G, ctx, id, card) {
   const currentPlayer = G.players[ctx.currentPlayer];
   let playerHand = [...currentPlayer.hand];
-
-  if (G.discardedCard[0].id === card.id) {
-    return INVALID_MOVE;
-  }
 
   // Remove card from discard pile
   G.discard[id].cards.shift();

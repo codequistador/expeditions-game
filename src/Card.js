@@ -73,7 +73,7 @@ const renderButtons = (props) => {
       </>
     );
   }
-  if (props.location === "discard") {
+  if (props.location === "discard" && props.discardedCardID !== props.id) {
     return <Button onClick={props.handleDraw}>Draw</Button>;
   }
   if (props.location === "") {

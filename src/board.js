@@ -21,6 +21,15 @@ class LostSummitsBoard extends React.Component {
     const cardsInDeck = this.props.G.deck.length;
     const discardPiles = this.props.G.discard;
     const expeditions = this.props.G.expeditions;
+    const discardedCardID =
+      this.props.G.discardedCard.length > 0
+        ? this.props.G.discardedCard[0].id
+        : null;
+    const lastMove = this.props.G.lastMove
+      ? this.props.G.lastMove
+      : "No moves yet";
+    const isMyTurn =
+      playerId === this.props.ctx.currentPlayer ? "It's your turn!" : "";
 
     return (
       <div>
@@ -32,6 +41,7 @@ class LostSummitsBoard extends React.Component {
         <DiscardPiles
           piles={discardPiles}
           handleDraw={this.props.moves.drawFromDiscard}
+          discardedCardID={discardedCardID}
         />
         <button onClick={() => this.props.moves.drawFromDeck()}>
           Draw from deck
@@ -48,7 +58,9 @@ class LostSummitsBoard extends React.Component {
             </div>
           ))}
         </HandWrapper>
-        <Deck>{cardsInDeck} Cards Remaining</Deck>
+        <Deck>
+          {cardsInDeck} Cards Remaining. Last Move: {lastMove}. {isMyTurn}
+        </Deck>
       </div>
     );
   }
