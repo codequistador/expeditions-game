@@ -60,6 +60,7 @@ const renderDiscardedCards = (props) =>
             color={topCard.color}
             location="discard"
             value={topCard.type !== "bet" ? topCard.value : "B"}
+            handleDraw={() => props.handleDraw(i, topCard)}
           />
         );
       }

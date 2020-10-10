@@ -29,7 +29,10 @@ class LostSummitsBoard extends React.Component {
           expeditions={expeditions[opponentId]}
           isOpponent
         />
-        <DiscardPiles piles={discardPiles} />
+        <DiscardPiles
+          piles={discardPiles}
+          handleDraw={this.props.moves.drawFromDiscard}
+        />
         <button onClick={() => this.props.moves.drawFromDeck()}>
           Draw from deck
         </button>

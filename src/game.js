@@ -44,63 +44,69 @@ export function getInitialState(ctx) {
   return G;
 }
 
-function playCard(G, ctx, id) {
-  // G.hand[ctx.currentPlayer]--;
-  // G.discard++;
-  console.log("playCard called");
-  ctx.events.setStage("draw");
-}
+function playCard(G, ctx, id, card) {
+  const currentPlayer = G.players[ctx.currentPlayer];
+  let playerHand = [...currentPlayer.hand];
+  let expeditionPile = G.expeditions[ctx.currentPlayer].find(
+    (e) => e.color === card.color
+  );
 
-function discard(G, ctx, id) {
-  let playerHand = [...G.players[ctx.currentPlayer].hand];
-  // const discardedCard = playerHand[id];
-  // const discardedCardColor = discardedCard.color;
-
-  // let discard = [...G.discard];
-  // discard
-  //   .find((e) => e.color === discardedCardColor)
-  //   .cards.unshift(discardedCard);
+  // Move card to expedition
+  expeditionPile.cards.push(card);
 
   // Remove the card from hand
   playerHand.splice(id, 1);
 
-  ctx.events.setStage("draw");
+  currentPlayer.hand = playerHand;
 
-  return {
-    ...G,
-    // discard,
-    players: {
-      ...G.players,
-      [ctx.currentPlayer]: {
-        hand: playerHand,
-      },
-    },
-  };
+  ctx.events.setStage("draw");
 }
 
-function drawFromDeck(G, ctx, id) {
-  let playerHand = [...G.players[ctx.currentPlayer].hand];
+function discard(G, ctx, id, card) {
+  const currentPlayer = G.players[ctx.currentPlayer];
+  let playerHand = [...currentPlayer.hand];
+  let discardPile = G.discard.find((e) => e.color === card.color);
+
+  // Move card to discard pile
+  discardPile.cards.unshift(card);
+
+  // Remove the card from hand
+  playerHand.splice(id, 1);
+
+  currentPlayer.hand = playerHand;
+
+  ctx.events.setStage("draw");
+}
+
+function drawFromDeck(G, ctx) {
+  const currentPlayer = G.players[ctx.currentPlayer];
+  let playerHand = [...currentPlayer.hand];
   let deck = [...G.deck];
+
+  // Draw a card
   const card = deck.pop();
+
+  // Add card to hand
   playerHand.push(card);
 
+  currentPlayer.hand = playerHand;
+  G.deck = deck;
+
   ctx.events.endTurn();
-  return {
-    ...G,
-    deck,
-    players: {
-      ...G.players,
-      [ctx.currentPlayer]: {
-        hand: playerHand,
-      },
-    },
-  };
 }
 
-function drawFromDiscard(G, ctx, id) {
-  // G.deck--;
-  // G.hand[ctx.currentPlayer]++;
-  console.log("DrawFromDiscard Called");
+function drawFromDiscard(G, ctx, id, card) {
+  const currentPlayer = G.players[ctx.currentPlayer];
+  let playerHand = [...currentPlayer.hand];
+
+  // Remove card from discard pile
+  G.discard[id].cards.shift();
+
+  // Add card to hand
+  playerHand.push(card);
+
+  currentPlayer.hand = playerHand;
+
   ctx.events.endTurn();
 }
 
