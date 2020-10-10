@@ -1,5 +1,5 @@
 import { deck as LostSummitsDeck } from "./constants/deck";
-import { PlayerView } from "boardgame.io/core";
+import { INVALID_MOVE, PlayerView } from "boardgame.io/core";
 
 export function getInitialHand(deck) {
   const hand = [];
@@ -24,6 +24,7 @@ export function getInitialState(ctx) {
   let G = {
     deck: [],
     discard: colorArray,
+    discardedCard: [],
     expeditions: {
       0: colorArray,
       1: colorArray,
@@ -50,6 +51,13 @@ function playCard(G, ctx, id, card) {
   let expeditionPile = G.expeditions[ctx.currentPlayer].find(
     (e) => e.color === card.color
   );
+  const expeditionCards = expeditionPile.cards;
+  const length = expeditionCards.length;
+  if (length > 0) {
+    if (expeditionCards[length - 1].id > card.id) {
+      return INVALID_MOVE;
+    }
+  }
 
   // Move card to expedition
   expeditionPile.cards.push(card);
@@ -67,8 +75,9 @@ function discard(G, ctx, id, card) {
   let playerHand = [...currentPlayer.hand];
   let discardPile = G.discard.find((e) => e.color === card.color);
 
-  // Move card to discard pile
+  // Move card to discard pile & log
   discardPile.cards.unshift(card);
+  G.discardedCard.unshift(card);
 
   // Remove the card from hand
   playerHand.splice(id, 1);
@@ -91,6 +100,7 @@ function drawFromDeck(G, ctx) {
 
   currentPlayer.hand = playerHand;
   G.deck = deck;
+  G.discardedCard = [];
 
   ctx.events.endTurn();
 }
@@ -99,6 +109,10 @@ function drawFromDiscard(G, ctx, id, card) {
   const currentPlayer = G.players[ctx.currentPlayer];
   let playerHand = [...currentPlayer.hand];
 
+  if (G.discardedCard[0].id === card.id) {
+    return INVALID_MOVE;
+  }
+
   // Remove card from discard pile
   G.discard[id].cards.shift();
 
@@ -106,6 +120,7 @@ function drawFromDiscard(G, ctx, id, card) {
   playerHand.push(card);
 
   currentPlayer.hand = playerHand;
+  G.discardedCard = [];
 
   ctx.events.endTurn();
 }
