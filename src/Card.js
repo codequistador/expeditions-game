@@ -53,11 +53,12 @@ const Button = styled.button`
 
 class Card extends React.Component {
   render() {
-    const isOpponent = this.props.isOpponent;
+    const { color, isOpponent, value } = this.props;
+
     return (
-      <Wrapper isOpponent={isOpponent} color={this.props.color}>
-        <Value isOpponent={isOpponent}>{this.props.value}</Value>
-        <Icon isOpponent={isOpponent}>{renderIcon(this.props.color)}</Icon>
+      <Wrapper isOpponent={isOpponent} color={color}>
+        <Value isOpponent={isOpponent}>{value}</Value>
+        <Icon isOpponent={isOpponent}>{renderIcon(color)}</Icon>
         {renderButtons(this.props)}
       </Wrapper>
     );
@@ -65,18 +66,34 @@ class Card extends React.Component {
 }
 
 const renderButtons = (props) => {
-  if (props.location === "hand") {
+  const {
+    discardedCardID,
+    handleDiscard,
+    handleDraw,
+    handlePlay,
+    id,
+    isCurrentPlayer,
+    isDrawStage,
+    location,
+  } = props;
+
+  if (location === "hand" && isCurrentPlayer && !isDrawStage) {
     return (
       <>
-        <Button onClick={props.handlePlay}>Play</Button>
-        <Button onClick={props.handleDiscard}>Discard</Button>
+        <Button onClick={handlePlay}>Play</Button>
+        <Button onClick={handleDiscard}>Discard</Button>
       </>
     );
   }
-  if (props.location === "discard" && props.discardedCardID !== props.id) {
-    return <Button onClick={props.handleDraw}>Draw</Button>;
+  if (
+    isCurrentPlayer &&
+    isDrawStage &&
+    location === "discard" &&
+    discardedCardID !== id
+  ) {
+    return <Button onClick={handleDraw}>Draw</Button>;
   }
-  if (props.location === "") {
+  if (location === "") {
     return;
   }
 };

@@ -52,11 +52,13 @@ const Button = styled.button`
 
 class Deck extends React.Component {
   render() {
-    const { cardsInDeck } = this.props;
+    const { cardsInDeck, isDrawStage } = this.props;
     return (
       <Wrapper cardsInDeck={cardsInDeck}>
         {cardsInDeck} Cards remaining
-        <Button onClick={this.props.handleDraw}>Draw From Deck</Button>
+        {isDrawStage && (
+          <Button onClick={this.props.handleDraw}>Draw From Deck</Button>
+        )}
       </Wrapper>
     );
   }

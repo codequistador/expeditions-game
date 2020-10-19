@@ -28,8 +28,8 @@ class LostSummitsBoard extends React.Component {
     const lastMove = this.props.G.lastMove
       ? this.props.G.lastMove
       : "No moves yet";
-    const isMyTurn =
-      playerId === this.props.ctx.currentPlayer ? "It's your turn!" : "";
+    const isCurrentPlayer = playerId === this.props.ctx.currentPlayer;
+    const isDrawStage = this.props.ctx.activePlayers != null;
 
     return (
       <div>
@@ -42,6 +42,8 @@ class LostSummitsBoard extends React.Component {
           piles={discardPiles}
           handleDraw={this.props.moves.drawFromDiscard}
           discardedCardID={discardedCardID}
+          isDrawStage={isDrawStage}
+          isCurrentPlayer={isCurrentPlayer}
         />
         <Expeditions player={playerId} expeditions={expeditions[playerId]} />
         <HandWrapper>
@@ -53,12 +55,15 @@ class LostSummitsBoard extends React.Component {
                 cardsInDeck={cardsInDeck}
                 handleDrawFromDeck={this.props.moves.drawFromDeck}
                 moves={this.props.moves}
+                isDrawStage={isDrawStage}
+                isCurrentPlayer={isCurrentPlayer}
               />
             </div>
           ))}
         </HandWrapper>
         <Deck>
-          {cardsInDeck} Cards Remaining. Last Move: {lastMove}. {isMyTurn}
+          {cardsInDeck} Cards Remaining. Last Move: {lastMove}.
+          {isCurrentPlayer && " It's your turn!"}
         </Deck>
       </div>
     );

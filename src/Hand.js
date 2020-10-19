@@ -16,36 +16,42 @@ const CardsWrapper = styled.div`
 `;
 
 class Hand extends React.Component {
-  renderCards = () => {
-    const cards = this.props.cards.sort((a, b) => {
-      return a.id - b.id;
-    });
-    return cards.map((card, i) => {
-      return (
-        <Card
-          key={i}
-          id={card.id}
-          color={card.color}
-          location="hand"
-          value={card.type !== "bet" ? card.value : "Bet"}
-          handlePlay={() => this.props.moves.playCard(i, card)}
-          handleDiscard={() => this.props.moves.discard(i, card)}
-        />
-      );
-    });
-  };
-
   render() {
+    const { cards, isCurrentPlayer, isDrawStage, moves } = this.props;
     return (
       <Wrapper>
-        <CardsWrapper>{this.renderCards()}</CardsWrapper>
+        <CardsWrapper>
+          {renderCards(cards, isCurrentPlayer, isDrawStage, moves)}
+        </CardsWrapper>
         <Deck
           cardsInDeck={this.props.cardsInDeck}
           handleDraw={() => this.props.handleDrawFromDeck()}
+          isDrawStage={isDrawStage}
         />
       </Wrapper>
     );
   }
 }
+
+const renderCards = (cards, isCurrentPlayer, isDrawStage, moves) => {
+  const sortedCards = cards.sort((a, b) => {
+    return a.id - b.id;
+  });
+  return sortedCards.map((card, i) => {
+    return (
+      <Card
+        key={i}
+        id={card.id}
+        color={card.color}
+        location="hand"
+        value={card.type !== "bet" ? card.value : "Bet"}
+        handlePlay={() => moves.playCard(i, card)}
+        handleDiscard={() => moves.discard(i, card)}
+        isCurrentPlayer={isCurrentPlayer}
+        isDrawStage={isDrawStage}
+      />
+    );
+  });
+};
 
 export default Hand;

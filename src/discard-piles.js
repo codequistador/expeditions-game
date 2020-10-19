@@ -63,6 +63,8 @@ const renderDiscardedCards = (props) =>
             value={topCard.type !== "bet" ? topCard.value : "Bet"}
             handleDraw={() => props.handleDraw(i, topCard)}
             discardedCardID={props.discardedCardID}
+            isCurrentPlayer={props.isCurrentPlayer}
+            isDrawStage={props.isDrawStage}
           />
         );
       }
