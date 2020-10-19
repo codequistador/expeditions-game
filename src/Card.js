@@ -53,13 +53,13 @@ const Button = styled.button`
 
 class Card extends React.Component {
   render() {
-    const { color, isOpponent, value } = this.props;
+    const { color, isOpponent, value, ...props } = this.props;
 
     return (
       <Wrapper isOpponent={isOpponent} color={color}>
         <Value isOpponent={isOpponent}>{value}</Value>
         <Icon isOpponent={isOpponent}>{renderIcon(color)}</Icon>
-        {renderButtons(this.props)}
+        {renderButtons(props)}
       </Wrapper>
     );
   }

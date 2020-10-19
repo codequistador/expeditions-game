@@ -17,15 +17,21 @@ const CardsWrapper = styled.div`
 
 class Hand extends React.Component {
   render() {
-    const { cards, isCurrentPlayer, isDrawStage, moves } = this.props;
+    const {
+      cards,
+      cardsInDeck,
+      isCurrentPlayer,
+      isDrawStage,
+      moves,
+    } = this.props;
     return (
       <Wrapper>
         <CardsWrapper>
           {renderCards(cards, isCurrentPlayer, isDrawStage, moves)}
         </CardsWrapper>
         <Deck
-          cardsInDeck={this.props.cardsInDeck}
-          handleDraw={() => this.props.handleDrawFromDeck()}
+          cardsInDeck={cardsInDeck}
+          handleDraw={() => moves.drawFromDeck()}
           isDrawStage={isDrawStage}
         />
       </Wrapper>

@@ -34,13 +34,14 @@ class Expeditions extends React.Component {
 
 const renderExpeditionDropZones = (props) =>
   props.expeditions.map((expedition, i) => {
+    const { isOpponent } = props;
     return (
-      <Expedition isOpponent={props.isOpponent} key={i}>
+      <Expedition isOpponent={isOpponent} key={i}>
         {expedition.cards.map((card, i) => {
           return (
             <Card
               key={i}
-              isOpponent={props.isOpponent}
+              isOpponent={isOpponent}
               color={card.color}
               location="expedition"
               value={card.type !== "bet" ? card.value : "Bet"}

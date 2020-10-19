@@ -15,21 +15,17 @@ const Deck = styled.div`
 
 class LostSummitsBoard extends React.Component {
   render() {
-    const players = this.props.G.players;
-    const playerId = this.props.playerID;
-    const opponentId = playerId === "1" ? "0" : "1";
-    const cardsInDeck = this.props.G.deck.length;
-    const discardPiles = this.props.G.discard;
-    const expeditions = this.props.G.expeditions;
+    const { G, ctx, moves, playerID } = this.props;
+    const players = G.players;
+    const opponentId = playerID === "1" ? "0" : "1";
+    const cardsInDeck = G.deck.length;
+    const discardPiles = G.discard;
+    const expeditions = G.expeditions;
     const discardedCardID =
-      this.props.G.discardedCard.length > 0
-        ? this.props.G.discardedCard[0].id
-        : null;
-    const lastMove = this.props.G.lastMove
-      ? this.props.G.lastMove
-      : "No moves yet";
-    const isCurrentPlayer = playerId === this.props.ctx.currentPlayer;
-    const isDrawStage = this.props.ctx.activePlayers != null;
+      G.discardedCard.length > 0 ? G.discardedCard[0].id : null;
+    const lastMove = G.lastMove ? G.lastMove : "No moves yet";
+    const isCurrentPlayer = playerID === ctx.currentPlayer;
+    const isDrawStage = ctx.activePlayers != null;
 
     return (
       <div>
@@ -40,12 +36,12 @@ class LostSummitsBoard extends React.Component {
         />
         <DiscardPiles
           piles={discardPiles}
-          handleDraw={this.props.moves.drawFromDiscard}
+          handleDraw={moves.drawFromDiscard}
           discardedCardID={discardedCardID}
           isDrawStage={isDrawStage}
           isCurrentPlayer={isCurrentPlayer}
         />
-        <Expeditions player={playerId} expeditions={expeditions[playerId]} />
+        <Expeditions player={playerID} expeditions={expeditions[playerID]} />
         <HandWrapper>
           {Object.keys(players).map((playerIndex) => (
             <div key={playerIndex}>
@@ -53,8 +49,7 @@ class LostSummitsBoard extends React.Component {
               <Hand
                 cards={players[playerIndex].hand}
                 cardsInDeck={cardsInDeck}
-                handleDrawFromDeck={this.props.moves.drawFromDeck}
-                moves={this.props.moves}
+                moves={moves}
                 isDrawStage={isDrawStage}
                 isCurrentPlayer={isCurrentPlayer}
               />

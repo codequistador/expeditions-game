@@ -54,6 +54,12 @@ const renderDiscardedCards = (props) =>
     const renderTopCard = () => {
       if (pile.cards.length > 0) {
         const topCard = pile.cards[0];
+        const {
+          handleDraw,
+          discardedCardID,
+          isCurrentPlayer,
+          isDrawStage,
+        } = props;
         return (
           <Card
             key={i}
@@ -61,10 +67,10 @@ const renderDiscardedCards = (props) =>
             color={topCard.color}
             location="discard"
             value={topCard.type !== "bet" ? topCard.value : "Bet"}
-            handleDraw={() => props.handleDraw(i, topCard)}
-            discardedCardID={props.discardedCardID}
-            isCurrentPlayer={props.isCurrentPlayer}
-            isDrawStage={props.isDrawStage}
+            handleDraw={() => handleDraw(i, topCard)}
+            discardedCardID={discardedCardID}
+            isCurrentPlayer={isCurrentPlayer}
+            isDrawStage={isDrawStage}
           />
         );
       }
