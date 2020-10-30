@@ -1,7 +1,6 @@
-import React from "react";
 import styled from "styled-components";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   width: 100px;
   height: 150px;
   background-color: #fff;
@@ -41,25 +40,3 @@ const Wrapper = styled.div`
   }
   `}
 `;
-
-const Button = styled.button`
-  background: white;
-  color: black;
-  border: 1px solid black;
-  border-radius: 6px;
-  margin: 4px;
-`;
-
-class Deck extends React.Component {
-  render() {
-    const { cardsInDeck, handleDraw, isDrawStage } = this.props;
-    return (
-      <Wrapper cardsInDeck={cardsInDeck}>
-        {cardsInDeck} Cards remaining
-        {isDrawStage && <Button onClick={handleDraw}>Draw From Deck</Button>}
-      </Wrapper>
-    );
-  }
-}
-
-export default Deck;

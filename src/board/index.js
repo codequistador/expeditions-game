@@ -1,17 +1,8 @@
 import React from "react";
-import Hand from "./hand";
-import DiscardPiles from "./discard-piles";
-import Expeditions from "./expeditions";
-import styled from "styled-components";
-
-const HandWrapper = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Deck = styled.div`
-  background-color: purple;
-  color: white;
-`;
+import Hand from "../hand";
+import DiscardPiles from "../discard-piles";
+import Expeditions from "../expeditions";
+import { HandWrapper, Deck } from "./styles.js";
 
 class LostSummitsBoard extends React.Component {
   render() {

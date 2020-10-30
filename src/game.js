@@ -56,7 +56,7 @@ function playCard(G, ctx, id, card) {
   const length = expeditionCards.length;
 
   // Only allow cards to be added in ascending order
-  if (length > 0) {
+  if (length > 0 && card.type !== "bet") {
     if (expeditionCards[length - 1].id > card.id) {
       return INVALID_MOVE;
     }

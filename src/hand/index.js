@@ -1,19 +1,7 @@
 import React from "react";
-import styled from "styled-components";
-import Card from "./card";
-import Deck from "./deck";
-
-const Wrapper = styled.div`
-  width: 75%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const CardsWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
+import Card from "../card";
+import Deck from "../deck";
+import { Wrapper, CardsWrapper } from "./styles";
 
 class Hand extends React.Component {
   render() {
@@ -32,6 +20,7 @@ class Hand extends React.Component {
         <Deck
           cardsInDeck={cardsInDeck}
           handleDraw={() => moves.drawFromDeck()}
+          isCurrentPlayer={isCurrentPlayer}
           isDrawStage={isDrawStage}
         />
       </Wrapper>

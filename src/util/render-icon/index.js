@@ -5,7 +5,7 @@ import AcUnitIcon from "@material-ui/icons/AcUnit";
 import NatureIcon from "@material-ui/icons/Nature";
 import BeachAccessIcon from "@material-ui/icons/BeachAccess";
 
-export const renderIcon = (color) => {
+const renderIcon = (color) => {
   switch (color) {
     case "blue":
       return <FilterHdrIcon />;
@@ -21,3 +21,5 @@ export const renderIcon = (color) => {
       return;
   }
 };
+
+export default renderIcon;
