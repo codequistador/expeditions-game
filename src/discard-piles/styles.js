@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const DiscardWrapper = styled.div`
   display: flex;
   width: 75%;
   justify-content: space-around;
-`;
+`
 
 export const DiscardPile = styled.div`
   box-style: border-box;
@@ -17,7 +17,7 @@ export const DiscardPile = styled.div`
   margin: 0 8px;
   position: relative;
   padding: 40px 8px 0 8px;
-`;
+`
 
 export const Value = styled.div`
   border-radius: 2px;
@@ -31,11 +31,11 @@ export const Value = styled.div`
   top: 8px;
   left: 8px;
   padding: 0 4px;
-`;
+`
 
 export const Icon = styled.div`
   color: black;
   position: absolute;
   top: 8px;
   right: 14px;
-`;
+`

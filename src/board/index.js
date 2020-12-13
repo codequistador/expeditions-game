@@ -1,22 +1,22 @@
-import React from "react";
-import Hand from "../hand";
-import DiscardPiles from "../discard-piles";
-import Expeditions from "../expeditions";
-import { HandWrapper, Deck } from "./styles.js";
+import React from 'react'
+import Hand from '../hand'
+import DiscardPiles from '../discard-piles'
+import Expeditions from '../expeditions'
+import { HandWrapper, Deck } from './styles.js'
 
 class LostSummitsBoard extends React.Component {
   render() {
-    const { G, ctx, moves, playerID } = this.props;
-    const players = G.players;
-    const opponentId = playerID === "1" ? "0" : "1";
-    const cardsInDeck = G.deck.length;
-    const discardPiles = G.discard;
-    const expeditions = G.expeditions;
+    const { G, ctx, moves, playerID } = this.props
+    const players = G.players
+    const opponentId = playerID === '1' ? '0' : '1'
+    const cardsInDeck = G.deck.length
+    const discardPiles = G.discard
+    const expeditions = G.expeditions
     const discardedCardID =
-      G.discardedCard.length > 0 ? G.discardedCard[0].id : null;
-    const lastMove = G.lastMove ? G.lastMove : "No moves yet";
-    const isCurrentPlayer = playerID === ctx.currentPlayer;
-    const isDrawStage = ctx.activePlayers != null;
+      G.discardedCard.length > 0 ? G.discardedCard[0].id : null
+    const lastMove = G.lastMove ? G.lastMove : 'No moves yet'
+    const isCurrentPlayer = playerID === ctx.currentPlayer
+    const isDrawStage = ctx.activePlayers != null
 
     return (
       <div>
@@ -52,8 +52,8 @@ class LostSummitsBoard extends React.Component {
           {isCurrentPlayer && " It's your turn!"}
         </Deck>
       </div>
-    );
+    )
   }
 }
 
-export default LostSummitsBoard;
+export default LostSummitsBoard

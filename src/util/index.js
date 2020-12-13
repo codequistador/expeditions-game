@@ -1,3 +1,3 @@
-import renderIcon from "./render-icon";
+import renderIcon from './render-icon'
 
-export { renderIcon };
+export { renderIcon }

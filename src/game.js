@@ -1,24 +1,24 @@
-import { deck as LostSummitsDeck } from "./constants/deck";
-import { INVALID_MOVE, PlayerView } from "boardgame.io/core";
+import { deck as LostSummitsDeck } from './constants/deck'
+import { INVALID_MOVE, PlayerView } from 'boardgame.io/core'
 
 export function getInitialHand(deck) {
-  const hand = [];
+  const hand = []
 
   for (var i = 0; i < 8; i++) {
-    const card = deck.pop();
-    hand.push(card);
+    const card = deck.pop()
+    hand.push(card)
   }
 
-  return hand;
+  return hand
 }
 
 const colorArray = [
-  { color: "blue", cards: [] },
-  { color: "red", cards: [] },
-  { color: "yellow", cards: [] },
-  { color: "white", cards: [] },
-  { color: "green", cards: [] },
-];
+  { color: 'blue', cards: [] },
+  { color: 'red', cards: [] },
+  { color: 'yellow', cards: [] },
+  { color: 'white', cards: [] },
+  { color: 'green', cards: [] },
+]
 
 export function getInitialState(ctx) {
   let G = {
@@ -30,106 +30,106 @@ export function getInitialState(ctx) {
       1: colorArray,
     },
     players: {},
-    lastMove: "",
-  };
+    lastMove: '',
+  }
 
-  G.deck = G.deck.concat(LostSummitsDeck);
-  G.deck = ctx.random.Shuffle(G.deck);
+  G.deck = G.deck.concat(LostSummitsDeck)
+  G.deck = ctx.random.Shuffle(G.deck)
 
   for (let j = 0; j < ctx.numPlayers; j++) {
     G.players[j] = {
       score: 0,
       hand: getInitialHand(G.deck),
-    };
+    }
   }
 
-  return G;
+  return G
 }
 
 function playCard(G, ctx, id, card) {
-  const currentPlayer = G.players[ctx.currentPlayer];
-  let playerHand = [...currentPlayer.hand];
+  const currentPlayer = G.players[ctx.currentPlayer]
+  let playerHand = [...currentPlayer.hand]
   let expeditionPile = G.expeditions[ctx.currentPlayer].find(
     (e) => e.color === card.color
-  );
-  const expeditionCards = expeditionPile.cards;
-  const length = expeditionCards.length;
+  )
+  const expeditionCards = expeditionPile.cards
+  const length = expeditionCards.length
 
   // Only allow cards to be added in ascending order
-  if (length > 0 && card.type !== "bet") {
+  if (length > 0 && card.type !== 'bet') {
     if (expeditionCards[length - 1].id > card.id) {
-      return INVALID_MOVE;
+      return INVALID_MOVE
     }
   }
 
   // Move card to expedition
-  expeditionPile.cards.push(card);
+  expeditionPile.cards.push(card)
 
   // Remove the card from hand
-  playerHand.splice(id, 1);
+  playerHand.splice(id, 1)
 
-  currentPlayer.hand = playerHand;
+  currentPlayer.hand = playerHand
 
   G.lastMove = `Player ${[ctx.currentPlayer].toString()} played a ${
     card.color
-  } ${card.value != null ? card.value : card.type}`;
+  } ${card.value != null ? card.value : card.type}`
 
-  ctx.events.setStage("draw");
+  ctx.events.setStage('draw')
 }
 
 function discard(G, ctx, id, card) {
-  const currentPlayer = G.players[ctx.currentPlayer];
-  let playerHand = [...currentPlayer.hand];
-  let discardPile = G.discard.find((e) => e.color === card.color);
+  const currentPlayer = G.players[ctx.currentPlayer]
+  let playerHand = [...currentPlayer.hand]
+  let discardPile = G.discard.find((e) => e.color === card.color)
 
   // Move card to discard pile & log
-  discardPile.cards.unshift(card);
-  G.discardedCard.unshift(card);
+  discardPile.cards.unshift(card)
+  G.discardedCard.unshift(card)
 
   // Remove the card from hand
-  playerHand.splice(id, 1);
+  playerHand.splice(id, 1)
 
-  currentPlayer.hand = playerHand;
+  currentPlayer.hand = playerHand
 
   G.lastMove = `Player ${[ctx.currentPlayer].toString()} discarded a ${
     card.color
-  } ${card.value != null ? card.value : card.type}`;
+  } ${card.value != null ? card.value : card.type}`
 
-  ctx.events.setStage("draw");
+  ctx.events.setStage('draw')
 }
 
 function drawFromDeck(G, ctx) {
-  const currentPlayer = G.players[ctx.currentPlayer];
-  let playerHand = [...currentPlayer.hand];
-  let deck = [...G.deck];
+  const currentPlayer = G.players[ctx.currentPlayer]
+  let playerHand = [...currentPlayer.hand]
+  let deck = [...G.deck]
 
   // Draw a card
-  const card = deck.pop();
+  const card = deck.pop()
 
   // Add card to hand
-  playerHand.push(card);
+  playerHand.push(card)
 
-  currentPlayer.hand = playerHand;
-  G.deck = deck;
-  G.discardedCard = [];
+  currentPlayer.hand = playerHand
+  G.deck = deck
+  G.discardedCard = []
 
-  ctx.events.endTurn();
+  ctx.events.endTurn()
 }
 
 function drawFromDiscard(G, ctx, id, card) {
-  const currentPlayer = G.players[ctx.currentPlayer];
-  let playerHand = [...currentPlayer.hand];
+  const currentPlayer = G.players[ctx.currentPlayer]
+  let playerHand = [...currentPlayer.hand]
 
   // Remove card from discard pile
-  G.discard[id].cards.shift();
+  G.discard[id].cards.shift()
 
   // Add card to hand
-  playerHand.push(card);
+  playerHand.push(card)
 
-  currentPlayer.hand = playerHand;
-  G.discardedCard = [];
+  currentPlayer.hand = playerHand
+  G.discardedCard = []
 
-  ctx.events.endTurn();
+  ctx.events.endTurn()
 }
 
 const LostSummits = {
@@ -143,6 +143,6 @@ const LostSummits = {
       },
     },
   },
-};
+}
 
-export default LostSummits;
+export default LostSummits

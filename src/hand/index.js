@@ -1,7 +1,7 @@
-import React from "react";
-import Card from "../card";
-import Deck from "../deck";
-import { Wrapper, CardsWrapper } from "./styles";
+import React from 'react'
+import Card from '../card'
+import Deck from '../deck'
+import { Wrapper, CardsWrapper } from './styles'
 
 class Hand extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class Hand extends React.Component {
       isCurrentPlayer,
       isDrawStage,
       moves,
-    } = this.props;
+    } = this.props
     return (
       <Wrapper>
         <CardsWrapper>
@@ -24,14 +24,14 @@ class Hand extends React.Component {
           isDrawStage={isDrawStage}
         />
       </Wrapper>
-    );
+    )
   }
 }
 
 const renderCards = (cards, isCurrentPlayer, isDrawStage, moves) => {
   const sortedCards = cards.sort((a, b) => {
-    return a.id - b.id;
-  });
+    return a.id - b.id
+  })
   return sortedCards.map((card, i) => {
     return (
       <Card
@@ -39,14 +39,14 @@ const renderCards = (cards, isCurrentPlayer, isDrawStage, moves) => {
         id={card.id}
         color={card.color}
         location="hand"
-        value={card.type !== "bet" ? card.value : "Bet"}
+        value={card.type !== 'bet' ? card.value : 'Bet'}
         handlePlay={() => moves.playCard(i, card)}
         handleDiscard={() => moves.discard(i, card)}
         isCurrentPlayer={isCurrentPlayer}
         isDrawStage={isDrawStage}
       />
-    );
-  });
-};
+    )
+  })
+}
 
-export default Hand;
+export default Hand

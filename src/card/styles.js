@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components'
 
 export const Wrapper = styled.div`
   width: 100px;
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`;
+`
 
 export const Value = styled.div`
   border-radius: 2px;
@@ -28,15 +28,15 @@ export const Value = styled.div`
   align-items: center;
   padding: 0 4px;
   position: absolute;
-  ${(props) => `${props.isOpponent ? "bottom: 5px;" : "top: 5px;"}`}
-  ${(props) => `${props.isOpponent ? "right: 5px;" : "left: 5px;"}`}
-  ${(props) => `${props.isOpponent && "transform: rotate(180deg);"}`}
-`;
+  ${(props) => `${props.isOpponent ? 'bottom: 5px;' : 'top: 5px;'}`}
+  ${(props) => `${props.isOpponent ? 'right: 5px;' : 'left: 5px;'}`}
+  ${(props) => `${props.isOpponent && 'transform: rotate(180deg);'}`}
+`
 
 export const Icon = styled.div`
   color: white;
   position: absolute;
-  ${(props) => `${props.isOpponent ? "bottom: 3px;" : "top: 3px;"}`}
-  ${(props) => `${props.isOpponent ? "left: 5px;" : "right: 5px;"}`}
-  ${(props) => `${props.isOpponent && "transform: rotate(180deg);"}`}
-`;
+  ${(props) => `${props.isOpponent ? 'bottom: 3px;' : 'top: 3px;'}`}
+  ${(props) => `${props.isOpponent ? 'left: 5px;' : 'right: 5px;'}`}
+  ${(props) => `${props.isOpponent && 'transform: rotate(180deg);'}`}
+`
