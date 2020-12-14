@@ -1,4 +1,5 @@
 import { deck as LostSummitsDeck } from './constants/deck'
+import { calculateScores } from './util'
 import { INVALID_MOVE, PlayerView } from 'boardgame.io/core'
 
 const colorArray = [
@@ -38,7 +39,6 @@ const getInitialState = (ctx) => {
 
   for (let j = 0; j < ctx.numPlayers; j++) {
     G.players[j] = {
-      score: 0,
       hand: getInitialHand(G.deck),
     }
   }
@@ -62,14 +62,12 @@ const playCard = (G, ctx, id, card) => {
     }
   }
 
-  // Move card to expedition
+  // Move card to expedition & remove the card from hand
   expeditionPile.cards.push(card)
-
-  // Remove the card from hand
   playerHand.splice(id, 1)
 
+  // Update game state
   currentPlayer.hand = playerHand
-
   G.lastMove = `Player ${[ctx.currentPlayer].toString()} played a ${
     card.color
   } ${card.value != null ? card.value : card.type}`
@@ -89,8 +87,8 @@ const discard = (G, ctx, id, card) => {
   // Remove the card from hand
   playerHand.splice(id, 1)
 
+  // Update game state
   currentPlayer.hand = playerHand
-
   G.lastMove = `Player ${[ctx.currentPlayer].toString()} discarded a ${
     card.color
   } ${card.value != null ? card.value : card.type}`
@@ -103,12 +101,11 @@ const drawFromDeck = (G, ctx) => {
   let playerHand = [...currentPlayer.hand]
   let deck = [...G.deck]
 
-  // Draw a card
+  // Draw a card & add to hand
   const card = deck.pop()
-
-  // Add card to hand
   playerHand.push(card)
 
+  // Update game state
   currentPlayer.hand = playerHand
   G.deck = deck
   G.discardedCard = []
@@ -120,28 +117,20 @@ const drawFromDiscard = (G, ctx, id, card) => {
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
 
-  // Remove card from discard pile
+  // Remove card from discard pile & add card to hand
   G.discard[id].cards.shift()
-
-  // Add card to hand
   playerHand.push(card)
 
+  // Update game state
   currentPlayer.hand = playerHand
   G.discardedCard = []
 
   ctx.events.endTurn()
 }
 
-const getWinner = (G) => {
-  console.log('got winner')
-
-  return { winner: 0, scores: {} }
-}
-
-const endGame = (G, ctx) => {
+const endGame = (G) => {
   if (G.deck.length <= 0) {
-    console.log('The game is over beyotch')
-    return getWinner(G)
+    return calculateScores(G)
   }
 }
 

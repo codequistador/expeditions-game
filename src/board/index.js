@@ -19,8 +19,6 @@ class LostSummitsBoard extends React.Component {
     const isDrawStage = ctx.activePlayers != null
     const isGameOver = ctx.gameover ? true : false
 
-    console.log(isGameOver)
-
     return (
       <div>
         <Expeditions
