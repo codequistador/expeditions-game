@@ -1,6 +1,11 @@
+// Still ToDo:
+// - better layout without dev console
+//   - Info panel w/ good looking error box and more.
+// - set up remote play with real multiplayer
+
 import { deck as LostSummitsDeck } from './constants/deck'
 import { calculateScores } from './util'
-import { INVALID_MOVE, PlayerView } from 'boardgame.io/core'
+import { PlayerView } from 'boardgame.io/core'
 
 const colorArray = [
   { color: 'blue', cards: [] },
@@ -25,13 +30,12 @@ const getInitialState = (ctx) => {
   let G = {
     deck: [],
     discard: colorArray,
-    discardedCard: [],
     expeditions: {
       0: colorArray,
       1: colorArray,
     },
     players: {},
-    lastMove: '',
+    info: { discardedCard: [], lastMove: '', error: '' },
   }
 
   G.deck = G.deck.concat(LostSummitsDeck)
@@ -47,6 +51,7 @@ const getInitialState = (ctx) => {
 }
 
 const playCard = (G, ctx, id, card) => {
+  G.info.error = ''
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
   let expeditionPile = G.expeditions[ctx.currentPlayer].find(
@@ -55,24 +60,28 @@ const playCard = (G, ctx, id, card) => {
   const expeditionCards = expeditionPile.cards
   const length = expeditionCards.length
 
+  let validPlay = true
+
   // Only allow cards to be added in ascending order
-  if (length > 0 && card.type !== 'bet') {
-    if (expeditionCards[length - 1].id > card.id) {
-      return INVALID_MOVE
-    }
+  if (length > 0) {
+    validPlay = expeditionCards[length - 1].id < card.id
   }
 
-  // Move card to expedition & remove the card from hand
-  expeditionPile.cards.push(card)
-  playerHand.splice(id, 1)
+  if (validPlay) {
+    // Move card to expedition & remove the card from hand
+    expeditionPile.cards.push(card)
+    playerHand.splice(id, 1)
 
-  // Update game state
-  currentPlayer.hand = playerHand
-  G.lastMove = `Player ${[ctx.currentPlayer].toString()} played a ${
-    card.color
-  } ${card.value != null ? card.value : card.type}`
+    // Update game state
+    currentPlayer.hand = playerHand
+    G.info.lastMove = `Player ${[ctx.currentPlayer].toString()} played a ${
+      card.color
+    } ${card.value != null ? card.value : card.type}`
 
-  ctx.events.setStage('draw')
+    ctx.events.setStage('draw')
+  } else {
+    G.info.error = 'Invalid Play: Cards must be added in ascending order.'
+  }
 }
 
 const discard = (G, ctx, id, card) => {
@@ -82,14 +91,14 @@ const discard = (G, ctx, id, card) => {
 
   // Move card to discard pile & log
   discardPile.cards.unshift(card)
-  G.discardedCard.unshift(card)
+  G.info.discardedCard.unshift(card)
 
   // Remove the card from hand
   playerHand.splice(id, 1)
 
   // Update game state
   currentPlayer.hand = playerHand
-  G.lastMove = `Player ${[ctx.currentPlayer].toString()} discarded a ${
+  G.info.lastMove = `Player ${[ctx.currentPlayer].toString()} discarded a ${
     card.color
   } ${card.value != null ? card.value : card.type}`
 
@@ -108,7 +117,7 @@ const drawFromDeck = (G, ctx) => {
   // Update game state
   currentPlayer.hand = playerHand
   G.deck = deck
-  G.discardedCard = []
+  G.info.discardedCard = []
 
   ctx.events.endTurn()
 }
@@ -123,7 +132,7 @@ const drawFromDiscard = (G, ctx, id, card) => {
 
   // Update game state
   currentPlayer.hand = playerHand
-  G.discardedCard = []
+  G.info.discardedCard = []
 
   ctx.events.endTurn()
 }

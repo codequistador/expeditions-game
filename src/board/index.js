@@ -13,8 +13,8 @@ class LostSummitsBoard extends React.Component {
     const discardPiles = G.discard
     const expeditions = G.expeditions
     const discardedCardID =
-      G.discardedCard.length > 0 ? G.discardedCard[0].id : null
-    const lastMove = G.lastMove ? G.lastMove : 'No moves yet'
+      G.info.discardedCard.length > 0 ? G.info.discardedCard[0].id : null
+    const lastMove = G.info.lastMove ? G.info.lastMove : 'No moves yet'
     const isCurrentPlayer = playerID === ctx.currentPlayer
     const isDrawStage = ctx.activePlayers != null
     const isGameOver = ctx.gameover ? true : false
@@ -50,8 +50,8 @@ class LostSummitsBoard extends React.Component {
           ))}
         </HandWrapper>
         <Deck>
-          {cardsInDeck} Cards Remaining. Last Move: {lastMove}.
-          {isCurrentPlayer && " It's your turn!"}
+          Last Move: {lastMove}.{isCurrentPlayer && " It's your turn!"}
+          {isCurrentPlayer && G.info.error}
         </Deck>
       </div>
     )

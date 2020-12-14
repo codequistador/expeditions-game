@@ -6,6 +6,7 @@ import { Local } from 'boardgame.io/multiplayer'
 import '@atlaskit/css-reset'
 
 const LostSummitsClient = Client({
+  debug: true,
   game: LostSummits,
   board: LostSummitsBoard,
   multiplayer: Local(),
