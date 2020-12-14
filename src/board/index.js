@@ -17,6 +17,9 @@ class LostSummitsBoard extends React.Component {
     const lastMove = G.lastMove ? G.lastMove : 'No moves yet'
     const isCurrentPlayer = playerID === ctx.currentPlayer
     const isDrawStage = ctx.activePlayers != null
+    const isGameOver = ctx.gameover ? true : false
+
+    console.log(isGameOver)
 
     return (
       <div>
@@ -43,6 +46,7 @@ class LostSummitsBoard extends React.Component {
                 moves={moves}
                 isDrawStage={isDrawStage}
                 isCurrentPlayer={isCurrentPlayer}
+                isGameOver={isGameOver}
               />
             </div>
           ))}

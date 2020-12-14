@@ -26,10 +26,11 @@ const renderButtons = (props) => {
     id,
     isCurrentPlayer,
     isDrawStage,
+    isGameOver,
     location,
   } = props
 
-  if (location === 'hand' && isCurrentPlayer && !isDrawStage) {
+  if (location === 'hand' && isCurrentPlayer && !isDrawStage && !isGameOver) {
     return (
       <>
         <Button onClick={handlePlay}>Play</Button>

@@ -10,12 +10,13 @@ class Hand extends React.Component {
       cardsInDeck,
       isCurrentPlayer,
       isDrawStage,
+      isGameOver,
       moves,
     } = this.props
     return (
       <Wrapper>
         <CardsWrapper>
-          {renderCards(cards, isCurrentPlayer, isDrawStage, moves)}
+          {renderCards(cards, isCurrentPlayer, isDrawStage, isGameOver, moves)}
         </CardsWrapper>
         <Deck
           cardsInDeck={cardsInDeck}
@@ -28,7 +29,13 @@ class Hand extends React.Component {
   }
 }
 
-const renderCards = (cards, isCurrentPlayer, isDrawStage, moves) => {
+const renderCards = (
+  cards,
+  isCurrentPlayer,
+  isDrawStage,
+  isGameOver,
+  moves
+) => {
   const sortedCards = cards.sort((a, b) => {
     return a.id - b.id
   })
@@ -44,6 +51,7 @@ const renderCards = (cards, isCurrentPlayer, isDrawStage, moves) => {
         handleDiscard={() => moves.discard(i, card)}
         isCurrentPlayer={isCurrentPlayer}
         isDrawStage={isDrawStage}
+        isGameOver={isGameOver}
       />
     )
   })

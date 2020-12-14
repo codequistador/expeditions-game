@@ -1,7 +1,15 @@
 import { deck as LostSummitsDeck } from './constants/deck'
 import { INVALID_MOVE, PlayerView } from 'boardgame.io/core'
 
-export function getInitialHand(deck) {
+const colorArray = [
+  { color: 'blue', cards: [] },
+  { color: 'red', cards: [] },
+  { color: 'yellow', cards: [] },
+  { color: 'white', cards: [] },
+  { color: 'green', cards: [] },
+]
+
+const getInitialHand = (deck) => {
   const hand = []
 
   for (var i = 0; i < 8; i++) {
@@ -12,15 +20,7 @@ export function getInitialHand(deck) {
   return hand
 }
 
-const colorArray = [
-  { color: 'blue', cards: [] },
-  { color: 'red', cards: [] },
-  { color: 'yellow', cards: [] },
-  { color: 'white', cards: [] },
-  { color: 'green', cards: [] },
-]
-
-export function getInitialState(ctx) {
+const getInitialState = (ctx) => {
   let G = {
     deck: [],
     discard: colorArray,
@@ -46,7 +46,7 @@ export function getInitialState(ctx) {
   return G
 }
 
-function playCard(G, ctx, id, card) {
+const playCard = (G, ctx, id, card) => {
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
   let expeditionPile = G.expeditions[ctx.currentPlayer].find(
@@ -77,7 +77,7 @@ function playCard(G, ctx, id, card) {
   ctx.events.setStage('draw')
 }
 
-function discard(G, ctx, id, card) {
+const discard = (G, ctx, id, card) => {
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
   let discardPile = G.discard.find((e) => e.color === card.color)
@@ -98,7 +98,7 @@ function discard(G, ctx, id, card) {
   ctx.events.setStage('draw')
 }
 
-function drawFromDeck(G, ctx) {
+const drawFromDeck = (G, ctx) => {
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
   let deck = [...G.deck]
@@ -116,7 +116,7 @@ function drawFromDeck(G, ctx) {
   ctx.events.endTurn()
 }
 
-function drawFromDiscard(G, ctx, id, card) {
+const drawFromDiscard = (G, ctx, id, card) => {
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
 
@@ -132,10 +132,24 @@ function drawFromDiscard(G, ctx, id, card) {
   ctx.events.endTurn()
 }
 
+const getWinner = (G) => {
+  console.log('got winner')
+
+  return { winner: 0, scores: {} }
+}
+
+const endGame = (G, ctx) => {
+  if (G.deck.length <= 0) {
+    console.log('The game is over beyotch')
+    return getWinner(G)
+  }
+}
+
 const LostSummits = {
   setup: getInitialState,
   playerView: PlayerView.STRIP_SECRETS,
   moves: { playCard, discard },
+  endIf: endGame,
   turn: {
     stages: {
       draw: {
