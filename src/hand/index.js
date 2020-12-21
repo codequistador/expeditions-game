@@ -36,7 +36,7 @@ const renderCards = (
   isGameOver,
   moves
 ) => {
-  const sortedCards = cards.sort((a, b) => {
+  const sortedCards = [...cards].sort((a, b) => {
     return a.id - b.id
   })
   return sortedCards.map((card, i) => {
