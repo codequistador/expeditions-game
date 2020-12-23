@@ -6,20 +6,14 @@ import NatureIcon from '@material-ui/icons/Nature'
 import BeachAccessIcon from '@material-ui/icons/BeachAccess'
 
 const renderIcon = (color) => {
-  switch (color) {
-    case 'blue':
-      return <FilterHdrIcon />
-    case 'red':
-      return <WhatshotIcon />
-    case 'white':
-      return <AcUnitIcon style={{ color: 'black' }} />
-    case 'green':
-      return <NatureIcon />
-    case 'yellow':
-      return <BeachAccessIcon style={{ color: 'black' }} />
-    default:
-      return
+  const icons = {
+    blue: () => <FilterHdrIcon />,
+    red: () => <WhatshotIcon />,
+    white: () => <AcUnitIcon style={{ color: 'black' }} />,
+    green: () => <NatureIcon />,
+    yellow: () => <BeachAccessIcon style={{ color: 'black' }} />,
   }
+  return icons[color]()
 }
 
 export default renderIcon
