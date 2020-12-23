@@ -5,7 +5,7 @@ import AcUnitIcon from '@material-ui/icons/AcUnit'
 import NatureIcon from '@material-ui/icons/Nature'
 import BeachAccessIcon from '@material-ui/icons/BeachAccess'
 
-const renderIcon = (color) => {
+function RenderIcon(color) {
   const icons = {
     blue: () => <FilterHdrIcon />,
     red: () => <WhatshotIcon />,
@@ -16,4 +16,4 @@ const renderIcon = (color) => {
   return icons[color]()
 }
 
-export default renderIcon
+export default RenderIcon

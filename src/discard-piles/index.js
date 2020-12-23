@@ -1,6 +1,6 @@
 import React from 'react'
 import Card from '../card'
-import { renderIcon } from '../util'
+import { RenderIcon } from '../util'
 import { DiscardWrapper, DiscardPile, Value, Icon } from './styles'
 
 class DiscardPiles extends React.Component {
@@ -25,7 +25,7 @@ const renderDiscardedCards = (props) =>
             key={i}
             id={topCard.id}
             color={topCard.color}
-            location="discard"
+            location='discard'
             value={topCard.type !== 'bet' ? topCard.value : 'Bet'}
             handleDraw={() => handleDraw(i, topCard)}
             discardedCardID={discardedCardID}
@@ -38,7 +38,7 @@ const renderDiscardedCards = (props) =>
     return (
       <DiscardPile key={i} color={pile.color}>
         <Value>{pile.color}</Value>
-        <Icon>{renderIcon(pile.color)}</Icon>
+        <Icon>{RenderIcon(pile.color)}</Icon>
         {renderTopCard()}
       </DiscardPile>
     )

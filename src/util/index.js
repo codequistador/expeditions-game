@@ -1,4 +1,4 @@
 import calculateScores from './calculate-score'
-import renderIcon from './render-icon'
+import RenderIcon from './render-icon'
 
-export { calculateScores, renderIcon }
+export { calculateScores, RenderIcon }
