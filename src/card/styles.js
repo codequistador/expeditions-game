@@ -34,7 +34,10 @@ export const Value = styled.div`
 `
 
 export const Icon = styled.div`
-  color: white;
+  color: ${(props) =>
+    `${
+      props.color === 'white' || props.color === 'yellow' ? 'black' : 'white'
+    }`};
   position: absolute;
   ${(props) => `${props.isOpponent ? 'bottom: 3px;' : 'top: 3px;'}`}
   ${(props) => `${props.isOpponent ? 'left: 5px;' : 'right: 5px;'}`}

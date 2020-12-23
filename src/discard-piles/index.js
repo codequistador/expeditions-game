@@ -25,7 +25,7 @@ const renderDiscardedCards = (props) =>
             key={i}
             id={topCard.id}
             color={topCard.color}
-            location='discard'
+            location="discard"
             value={topCard.type !== 'bet' ? topCard.value : 'Bet'}
             handleDraw={() => handleDraw(i, topCard)}
             discardedCardID={discardedCardID}
@@ -35,10 +35,13 @@ const renderDiscardedCards = (props) =>
         )
       }
     }
+    const CardIcon = RenderIcon(pile.color)
     return (
       <DiscardPile key={i} color={pile.color}>
         <Value>{pile.color}</Value>
-        <Icon>{RenderIcon(pile.color)}</Icon>
+        <Icon>
+          <CardIcon />
+        </Icon>
         {renderTopCard()}
       </DiscardPile>
     )

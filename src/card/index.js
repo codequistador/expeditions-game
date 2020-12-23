@@ -6,11 +6,14 @@ import { Button } from '../shared-styles'
 class Card extends React.Component {
   render() {
     const { color, isOpponent, value, ...props } = this.props
+    const CardIcon = RenderIcon(color)
 
     return (
       <Wrapper isOpponent={isOpponent} color={color}>
         <Value isOpponent={isOpponent}>{value}</Value>
-        <Icon isOpponent={isOpponent}>{RenderIcon(color)}</Icon>
+        <Icon isOpponent={isOpponent} color={color}>
+          <CardIcon />
+        </Icon>
         {renderButtons(props)}
       </Wrapper>
     )
