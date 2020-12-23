@@ -67,8 +67,8 @@ const playCard = (G, ctx, id, card) => {
 
   let validPlay = true
 
-  // Only allow cards to be added in ascending order
-  if (length > 0) {
+  // Only allow cards to be added in ascending order (BUG -- Adding multiple bets)
+  if (length > 0 && card.type !== 'bet') {
     validPlay = expeditionCards[length - 1].id < card.id
   }
 
@@ -81,7 +81,7 @@ const playCard = (G, ctx, id, card) => {
     currentPlayer.hand = playerHand
     G.info.lastMove = `Player ${[ctx.currentPlayer].toString()} played a ${
       card.color
-    } ${card.value != null ? card.value : card.type}`
+    } ${card.value !== null ? card.value : card.type}`
 
     ctx.events.setStage('draw')
   } else {
