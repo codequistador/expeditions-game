@@ -15,6 +15,10 @@ const colorArray = [
   { color: 'green', cards: [] },
 ]
 
+const sortHand = (cards) => {
+  cards.sort((a, b) => a.id - b.id)
+}
+
 const getInitialHand = (deck) => {
   const hand = []
 
@@ -22,6 +26,7 @@ const getInitialHand = (deck) => {
     const card = deck.pop()
     hand.push(card)
   }
+  sortHand(hand)
 
   return hand
 }
@@ -110,9 +115,10 @@ const drawFromDeck = (G, ctx) => {
   let playerHand = [...currentPlayer.hand]
   let deck = [...G.deck]
 
-  // Draw a card & add to hand
+  // Draw a card & add to hand & sort
   const card = deck.pop()
   playerHand.push(card)
+  sortHand(playerHand)
 
   // Update game state
   currentPlayer.hand = playerHand
@@ -126,9 +132,10 @@ const drawFromDiscard = (G, ctx, id, card) => {
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
 
-  // Remove card from discard pile & add card to hand
+  // Remove card from discard pile & add card to hand & sort
   G.discard[id].cards.shift()
   playerHand.push(card)
+  sortHand(playerHand)
 
   // Update game state
   currentPlayer.hand = playerHand

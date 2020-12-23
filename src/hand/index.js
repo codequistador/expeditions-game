@@ -36,16 +36,13 @@ const renderCards = (
   isGameOver,
   moves
 ) => {
-  const sortedCards = [...cards].sort((a, b) => {
-    return a.id - b.id
-  })
-  return sortedCards.map((card, i) => {
+  return cards.map((card, i) => {
     return (
       <Card
         key={i}
         id={card.id}
         color={card.color}
-        location="hand"
+        location='hand'
         value={card.type !== 'bet' ? card.value : 'Bet'}
         handlePlay={() => moves.playCard(i, card)}
         handleDiscard={() => moves.discard(i, card)}
