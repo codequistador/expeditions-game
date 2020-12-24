@@ -1,8 +1,3 @@
-// Still ToDo:
-// - better layout without dev console
-//   - Info panel w/ good looking error box and more.
-// - set up remote play with real multiplayer
-
 import { deck as LostSummitsDeck } from './constants/deck'
 import { calculateScores } from './util'
 import { PlayerView } from 'boardgame.io/core'
@@ -67,7 +62,7 @@ const playCard = (G, ctx, id, card) => {
 
   let validPlay = true
 
-  // Only allow cards to be added in ascending order (BUG -- Adding multiple bets)
+  // Only allow cards to be added in ascending order
   if (length > 0 && card.type !== 'bet') {
     validPlay = expeditionCards[length - 1].id < card.id
   }
