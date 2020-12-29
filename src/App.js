@@ -9,7 +9,7 @@ import { SocketIO } from 'boardgame.io/multiplayer'
 import '@atlaskit/css-reset'
 
 const LostSummitsClient = Client({
-  debug: true,
+  debug: false,
   game: LostSummits,
   board: LostSummitsBoard,
   multiplayer: SocketIO({ server: 'localhost:8000' }),

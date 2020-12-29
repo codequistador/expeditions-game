@@ -1,30 +1,20 @@
 import React from 'react'
 import Card from '../card'
-import Deck from '../deck'
-import { Wrapper, CardsWrapper } from './styles'
+import { CardsWrapper } from './styles'
 
 class Hand extends React.Component {
   render() {
     const {
       cards,
-      cardsInDeck,
       isCurrentPlayer,
       isDrawStage,
       isGameOver,
       moves,
     } = this.props
     return (
-      <Wrapper>
-        <CardsWrapper>
-          {renderCards(cards, isCurrentPlayer, isDrawStage, isGameOver, moves)}
-        </CardsWrapper>
-        <Deck
-          cardsInDeck={cardsInDeck}
-          handleDraw={() => moves.drawFromDeck()}
-          isCurrentPlayer={isCurrentPlayer}
-          isDrawStage={isDrawStage}
-        />
-      </Wrapper>
+      <CardsWrapper>
+        {renderCards(cards, isCurrentPlayer, isDrawStage, isGameOver, moves)}
+      </CardsWrapper>
     )
   }
 }
@@ -42,7 +32,7 @@ const renderCards = (
         key={i}
         id={card.id}
         color={card.color}
-        location='hand'
+        location="hand"
         value={card.type !== 'bet' ? card.value : 'Bet'}
         handlePlay={() => moves.playCard(i, card)}
         handleDiscard={() => moves.discard(i, card)}

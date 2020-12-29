@@ -5,12 +5,12 @@ This is a clone of the awesome card game "Lost Cities". I wrote it for fun and t
 ## Still ToDo
 
 - [x] Set up SocketIO multiplayer
-- [] Better layout without dev console
+- [x] Better layout without dev console
 - [] Info panel w/ good looking error box and more.
 - [] Invite link when someone creates a game
 - [] Figure out how to reset server when a new game is created
 - [] Set up end of game messages & flow
-- [] Build out homepage
+- [] Better Lobby with player auth (https://github.com/maciejmatu/mosaic/tree/master/src)
 
 ## Available Scripts
 

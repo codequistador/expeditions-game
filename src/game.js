@@ -148,6 +148,8 @@ const endGame = (G) => {
 const LostSummits = {
   setup: getInitialState,
   playerView: PlayerView.STRIP_SECRETS,
+  maxPlayers: 2,
+  minPlayers: 2,
   moves: { playCard, discard },
   endIf: endGame,
   turn: {

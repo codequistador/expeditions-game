@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const DiscardWrapper = styled.div`
   display: flex;
-  width: 75%;
+  width: 100%;
   justify-content: space-around;
 `
 
