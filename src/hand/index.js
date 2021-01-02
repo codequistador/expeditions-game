@@ -33,7 +33,7 @@ const renderCards = (
         id={card.id}
         color={card.color}
         location="hand"
-        value={card.type !== 'bet' ? card.value : 'Bet'}
+        value={card.type !== 'bet' ? card.value : '$$'}
         handlePlay={() => moves.playCard(i, card)}
         handleDiscard={() => moves.discard(i, card)}
         isCurrentPlayer={isCurrentPlayer}

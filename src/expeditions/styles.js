@@ -10,12 +10,13 @@ export const Expedition = styled.div`
   border-radius: 6px;
   width: 100px;
   margin: 0 8px;
-  padding: 8px 8px 125px 8px;
+  padding: 0 8px 108px 8px;
   display: flex;
+  align-items: center;
   flex-direction: ${(props) =>
-    `${props.isOpponent ? 'column-reverse' : 'column'}`};
+    `${props.isOpponent ? 'column' : 'column-reverse'}`};
 
   & > * {
-    margin-bottom: -120px;
+    margin-bottom: -108px;
   }
 `

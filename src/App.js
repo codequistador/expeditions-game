@@ -7,6 +7,7 @@ import shortid from 'shortid'
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
 import '@atlaskit/css-reset'
+import { GlobalStyles } from './shared-styles'
 
 const LostSummitsClient = Client({
   debug: false,
@@ -17,33 +18,39 @@ const LostSummitsClient = Client({
 
 function App() {
   return (
-    <Router>
-      <>
-        <Route path="/" exact component={Homepage} />
-        <Route
-          path="/play/:id?/:player?"
-          render={({ match }) => {
-            if (
-              typeof match.params.id === 'undefined' ||
-              !shortid.isValid(match.params.id)
-            ) {
-              return <Homepage />
-            }
-            let playerID = ''
-            if (match.params.player === '0') {
-              playerID = '0'
-            } else if (match.params.player === '1') {
-              playerID = '1'
-            } else if (typeof match.params.player !== 'undefined') {
-              return null
-            }
-            return (
-              <LostSummitsClient gameID={match.params.id} playerID={playerID} />
-            )
-          }}
-        />
-      </>
-    </Router>
+    <>
+      <GlobalStyles />
+      <Router>
+        <>
+          <Route path="/" exact component={Homepage} />
+          <Route
+            path="/play/:id?/:player?"
+            render={({ match }) => {
+              if (
+                typeof match.params.id === 'undefined' ||
+                !shortid.isValid(match.params.id)
+              ) {
+                return <Homepage />
+              }
+              let playerID = ''
+              if (match.params.player === '0') {
+                playerID = '0'
+              } else if (match.params.player === '1') {
+                playerID = '1'
+              } else if (typeof match.params.player !== 'undefined') {
+                return null
+              }
+              return (
+                <LostSummitsClient
+                  gameID={match.params.id}
+                  playerID={playerID}
+                />
+              )
+            }}
+          />
+        </>
+      </Router>
+    </>
   )
 }
 

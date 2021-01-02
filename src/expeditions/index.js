@@ -24,7 +24,7 @@ const renderExpeditionDropZones = (props) =>
               isOpponent={isOpponent}
               color={card.color}
               location="expedition"
-              value={card.type !== 'bet' ? card.value : 'Bet'}
+              value={card.type !== 'bet' ? card.value : '$$'}
             />
           )
         })}

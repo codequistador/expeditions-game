@@ -1,8 +1,12 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div``
+
+export const DeckInfo = styled.div``
+
+export const TheDeck = styled.div`
   width: 100px;
-  height: 150px;
+  height: 100px;
   background-color: #fff;
   box-shadow: 2px 1px 1px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;

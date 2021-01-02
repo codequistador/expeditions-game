@@ -1,6 +1,6 @@
 import React from 'react'
 import { RenderIcon } from '../util'
-import { Wrapper, Value, Icon } from './styles'
+import { ButtonsWrapper, Wrapper, Value, Icon } from './styles'
 import { Button } from '../shared-styles'
 
 class Card extends React.Component {
@@ -11,10 +11,10 @@ class Card extends React.Component {
     return (
       <Wrapper isOpponent={isOpponent} color={color}>
         <Value isOpponent={isOpponent}>{value}</Value>
-        <Icon isOpponent={isOpponent} color={color}>
-          <CardIcon />
+        <Icon isOpponent={isOpponent}>
+          <CardIcon fontSize="inherit" />
         </Icon>
-        {renderButtons(props)}
+        <ButtonsWrapper>{renderButtons(props)}</ButtonsWrapper>
       </Wrapper>
     )
   }
