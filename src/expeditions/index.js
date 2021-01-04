@@ -1,11 +1,13 @@
 import React from 'react'
 import Card from '../card'
-import { ExpeditionsWrapper, Expedition } from './styles'
+import { ExpeditionsWrapper, Expedition, Label } from './styles'
 
 class Expeditions extends React.Component {
   render() {
+    const { isOpponent } = this.props
     return (
       <ExpeditionsWrapper>
+        <Label isOpponent={isOpponent}>Expeditions</Label>
         {renderExpeditionDropZones(this.props)}
       </ExpeditionsWrapper>
     )
@@ -25,6 +27,7 @@ const renderExpeditionDropZones = (props) =>
               color={card.color}
               location="expedition"
               value={card.type !== 'bet' ? card.value : '$$'}
+              small
             />
           )
         })}

@@ -8,19 +8,19 @@ import yellowBg from '../assets/yellow.jpg'
 export const DiscardWrapper = styled.div`
   position: relative;
   display: flex;
-  width: 1024px;
+  max-width: 1024px;
+  width: 100%;
   justify-content: space-around;
-  border: 1px solid black;
-  border-radius: 16px;
   margin: 0 auto;
-  padding: 16px 0;
+  padding: 8px 0;
 
-  & span {
+  & h2 {
     font-size: 28px;
+    font-weight: normal;
     transform: rotate(270deg);
     position: absolute;
-    top: 70px;
-    left: -100px;
+    top: 68px;
+    left: -60px;
   }
 `
 
@@ -42,7 +42,6 @@ export const DiscardPile = styled.div`
   width: 118px;
   height: 150px;
   display: inline-flex;
-  margin: 0 8px;
   position: relative;
   padding: 40px 8px 0 8px;
 `

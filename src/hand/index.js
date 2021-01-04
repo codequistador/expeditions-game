@@ -13,6 +13,7 @@ class Hand extends React.Component {
     } = this.props
     return (
       <CardsWrapper>
+        <h2>Your Hand</h2>
         {renderCards(cards, isCurrentPlayer, isDrawStage, isGameOver, moves)}
       </CardsWrapper>
     )

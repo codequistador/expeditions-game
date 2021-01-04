@@ -2,8 +2,8 @@ import styled from 'styled-components'
 import { colors } from '../shared-styles'
 
 export const Wrapper = styled.div`
-  width: 100px;
-  height: 100px;
+  width: ${(props) => `${props.small ? '50px' : '100px'}`};
+  height: ${(props) => `${props.small ? '50px' : '100px'}`};
   border: 1px solid black;
   border-radius: 4px;
   background-color: ${(props) => colors[`${props.color}`]};
@@ -13,12 +13,13 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 `
 
 export const Value = styled.div`
   color: black;
   font-family: 'Mountains of Christmas', cursive;
-  font-size: 32px;
+  font-size: ${(props) => `${props.small ? '42px' : '32px'}`};
   font-weight: bold;
   width: auto;
   height: 20px;
@@ -26,7 +27,7 @@ export const Value = styled.div`
   justify-content: center;
   align-items: center;
   padding: 0 4px;
-  position: absolute;
+  position: ${(props) => `${props.small ? 'initial' : 'absolute'}`};
   ${(props) => `${props.isOpponent ? 'bottom: 8px;' : 'top: 8px;'}`}
   ${(props) => `${props.isOpponent ? 'right: 5px;' : 'left: 5px;'}`}
   ${(props) => `${props.isOpponent && 'transform: rotate(180deg);'}`}
@@ -34,13 +35,20 @@ export const Value = styled.div`
 
 export const Icon = styled.div`
   color: black;
-  opacity: 0.5;
-  width: 60px;
+  opacity: ${(props) => `${props.small ? '0.2' : '0.5'}`};
+  width: ${(props) => `${props.small ? '50px' : '60px'}`};
+  font-size: ${(props) => `${props.small ? '50px' : '60px'}`};
   position: absolute;
-  font-size: 60px;
   z-index: 0;
 
   ${(props) => `${props.isOpponent ? 'bottom: 16px;' : 'top: 16px;'}`}
+  ${(props) => {
+    if (props.small && !props.isOpponent) {
+      return `top: -5px;`
+    } else if (props.small && props.isOpponent) {
+      return `bottom: -5px;`
+    }
+  }}
   ${(props) => `${props.isOpponent && 'transform: rotate(180deg);'}`}
 `
 

@@ -1,5 +1,6 @@
-import Button from './button'
 import colors from './colors'
 import GlobalStyles from './global-styles'
+import Toast from './toast'
+import Button from './button'
 
-export { Button, colors, GlobalStyles }
+export { colors, GlobalStyles, Button, Toast }

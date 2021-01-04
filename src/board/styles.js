@@ -1,5 +1,4 @@
 import styled from 'styled-components'
-import { colors } from '../shared-styles'
 
 export const GameWrapper = styled.div`
   display: grid;
@@ -9,15 +8,14 @@ export const GameWrapper = styled.div`
 
 export const BoardWrapper = styled.div`
   display: grid;
-  grid-template-rows: auto 190px;
+  grid-template-rows: auto 170px;
   overflow-y: scroll;
 `
 
-export const ExpeditionsWrapper = styled.div``
-
-export const Sidebar = styled.div`
-  background: ${colors.navy};
-  color: ${colors.white};
+export const ExpeditionsWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `
 
 export const HandWrapper = styled.div`

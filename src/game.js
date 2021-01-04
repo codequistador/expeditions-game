@@ -63,8 +63,13 @@ const playCard = (G, ctx, id, card) => {
   let validPlay = true
 
   // Only allow cards to be added in ascending order
-  if (length > 0 && card.type !== 'bet') {
-    validPlay = expeditionCards[length - 1].id < card.id
+  if (length > 0) {
+    const prevCard = expeditionCards[length - 1]
+    if (card.type === 'bet' && prevCard.type !== 'bet') {
+      validPlay = false
+    } else if (card.type !== 'bet') {
+      validPlay = prevCard.id < card.id
+    }
   }
 
   if (validPlay) {
@@ -85,6 +90,7 @@ const playCard = (G, ctx, id, card) => {
 }
 
 const discard = (G, ctx, id, card) => {
+  G.info.error = ''
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
   let discardPile = G.discard.find((e) => e.color === card.color)

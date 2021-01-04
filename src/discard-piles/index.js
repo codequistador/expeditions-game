@@ -7,7 +7,7 @@ class DiscardPiles extends React.Component {
   render() {
     return (
       <DiscardWrapper>
-        <span>Discard piles</span>
+        <h2>Discard piles</h2>
         {renderDiscardedCards(this.props)}
       </DiscardWrapper>
     )

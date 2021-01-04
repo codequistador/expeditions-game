@@ -4,12 +4,12 @@ import Hand from '../hand'
 import Deck from '../deck'
 import DiscardPiles from '../discard-piles'
 import Expeditions from '../expeditions'
+import Sidebar from '../sidebar'
 import {
   BoardWrapper,
   ExpeditionsWrapper,
   GameWrapper,
   HandWrapper,
-  Sidebar,
 } from './styles.js'
 
 class LostSummitsBoard extends React.Component {
@@ -44,13 +44,13 @@ class LostSummitsBoard extends React.Component {
 
     return (
       <GameWrapper>
-        <Sidebar>
-          Player {playerID}
-          <br />
-          Last Move: {lastMove}.{isCurrentPlayer && " It's your turn!"}
-          <br />
-          {isCurrentPlayer && G.info.error}
-        </Sidebar>
+        <Sidebar
+          playerId={playerID}
+          lastMove={lastMove}
+          isCurrentPlayer={isCurrentPlayer}
+          error={G.info.error}
+          gameover={ctx.gameover}
+        />
         <BoardWrapper>
           <ExpeditionsWrapper>
             <Expeditions
