@@ -9,10 +9,11 @@ This is a clone of the awesome card game "Lost Cities". I wrote it for fun and t
 - [x] Info panel w/ good looking error box and more.
 - [x] Set up end of game messages
 - [] Add Rules
-- [] Better Lobby with player auth (https://github.com/maciejmatu/mosaic/tree/master/src)
+- [x] Better Lobby with player auth
 - [] Figure out how to reset server when a new game is created
 - [] New game flow
 - [] Typescript all the things
+- [] Add the ability for someone to set their name and declare themselves ready
 
 ## Available Scripts
 

@@ -9,8 +9,8 @@ class Homepage extends React.Component {
     api.createRoom(2).then(
       (roomID) => {
         const history = this.props.history
-        console.log('Created room with roomID = ', roomID)
-        history.push('/lobby/' + roomID)
+        console.log(`Created room with roomID = ${roomID}`)
+        history.push(`/match/${roomID}`)
       },
       (err) => {
         console.log(err)

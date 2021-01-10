@@ -19,21 +19,36 @@ const LostSummitsClient = Client({
 })
 
 class Match extends React.Component {
-  constructor(props) {
-    super(props)
-    this.joinMatch(props.id)
-    this.state = {
-      matchID: props.id,
-      joined: [],
-      myID: null,
-      myName: null,
-      myAuthToken: null,
-      copied: false,
-    }
+  state = {
+    matchID: this.props.id,
+    joined: [],
+    myID: null,
+    myName: null,
+    myAuthToken: null,
+    copied: false,
+  }
+
+  componentDidMount() {
+    this.joinMatch(this.props.id)
+    this.interval = setInterval(this.getRoomStatus, 1000)
   }
 
   async joinMatch(matchID) {
+    const history = this.props.history
+    // Get the game to know how many players have joined already.
+    let players
+    try {
+      players = await api.whoIsInRoom(matchID)
+    } catch (e) {
+      alert(
+        'Something went wrong. Make sure you have the right URL and try again.'
+      )
+      history.push(`${server}/`)
+      return
+    }
+
     let myID
+    let myName
     let myAuthToken
 
     // look in local storage for player info
@@ -45,54 +60,47 @@ class Match extends React.Component {
 
     if (myID !== null && myAuthToken !== null) {
       console.log('local storage found')
+      const joinedPlayers = players.filter((p) => p.name)
       this.setState({
         myID: myID,
         myAuthToken: myAuthToken,
+        joined: joinedPlayers,
       })
       return
     }
+
     console.log('no local storage found. moving on.')
-
     myID = '0'
-  }
+    const seatIsOpen = players.some((player, i) => {
+      myID = i.toString()
+      return !player.hasOwnProperty('name')
+    })
 
-  joinRoom = (playerID) => {
-    const { matchID } = this.state
-    const shownID = playerID + 1
-    const username = `Player ${shownID} The Great`
-    if (matchID) {
-      api.joinRoom(matchID, username, playerID.toString()).then(
-        (authToken) => {
-          console.log(
-            `Joined room as player ${playerID} with username ${username}`
-          )
-          this.setState({
-            myID: playerID,
-            myName: username,
-            userAuthToken: authToken,
-          })
-        },
-        (err) => console.log(err)
-      )
-    }
-  }
+    myName = `Player ${parseInt(myID) + 1}`
 
-  getRoomStatusAndJoin = () => {
-    const { matchID } = this.state
-    if (matchID) {
-      api.whoIsInRoom(matchID).then(
-        (players) => {
-          const joinedPlayers = players.filter((p) => p.name)
-          this.setState({ joined: joinedPlayers })
-          const myPlayerID = joinedPlayers.length
-          this.joinRoom(myPlayerID)
-        },
-        (err) => {
-          console.log(`The room does not exist: ${err}`)
-          this.setState({ matchID: null })
-        }
-      )
+    if (!seatIsOpen) {
+      alert('This game is full!')
+      return
     }
+
+    // Let's actually join the match
+    api.joinRoom(matchID, myName, myID).then(
+      (authToken) => {
+        console.log(`Joined room as player ${myID} with username ${myName}`)
+        this.setState({
+          myID: myID,
+          myName: myName,
+          myAuthToken: authToken,
+        })
+        localStorage.setItem(`playerID for matchID=${matchID}`, myID)
+        localStorage.setItem(
+          `playerCredentials for matchID=${matchID}`,
+          authToken
+        )
+        this.getRoomStatus()
+      },
+      (err) => console.log(err)
+    )
   }
 
   getRoomStatus = () => {
@@ -100,9 +108,12 @@ class Match extends React.Component {
     if (matchID) {
       api.whoIsInRoom(matchID).then(
         (players) => {
-          console.log(`Looking for second player...`)
           const joinedPlayers = players.filter((p) => p.name)
           this.setState({ joined: joinedPlayers })
+          console.log(`checking room status: ${joinedPlayers.length} players`)
+          if (joinedPlayers.length === 2) {
+            clearInterval(this.interval)
+          }
         },
         (err) => {
           console.log(`The room does not exist: ${err}`)
@@ -114,7 +125,7 @@ class Match extends React.Component {
 
   getPlayerStatusDOM = (player, i) => {
     if (player) {
-      if (player.id === this.state.myID) {
+      if (player.id === parseInt(this.state.myID)) {
         return <div key={player.id}>{player.name} - You</div>
       } else {
         return <div key={player.id}>{player.name}</div>
@@ -147,7 +158,7 @@ class Match extends React.Component {
     return (
       <>
         <textarea
-          value={`${server}/lobby/${matchID}`}
+          value={`${server}/match/${matchID}`}
           ref={(textarea) => (this.textArea = textarea)}
           readOnly
         />
@@ -177,18 +188,19 @@ class Match extends React.Component {
   }
 
   gameView = () => {
-    const { matchID, joined, myID, userAuthToken } = this.state
+    const { matchID, joined, myID, myAuthToken } = this.state
     return (
       <LostSummitsClient
         matchID={matchID}
         players={joined}
         playerID={String(myID)}
-        credentials={userAuthToken}
+        credentials={myAuthToken}
       ></LostSummitsClient>
     )
   }
 
   render() {
+    // This will be replaced with something like "if both players are ready"
     if (this.state.joined.length === 2) {
       return this.gameView()
     }

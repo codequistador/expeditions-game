@@ -18,10 +18,10 @@ function App() {
           render={(props) => <Homepage {...props} history={history} />}
         />
         <Route
-          path="/lobby/:id"
+          path="/match/:id"
           render={(props) => {
             const { id } = props.match.params
-            return <Match {...{ id }} />
+            return <Match {...{ id }} history={history} />
           }}
         />
         <Route
