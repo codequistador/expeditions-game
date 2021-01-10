@@ -1,21 +1,27 @@
 import React from 'react'
-import shortid from 'shortid'
+import { LobbyAPI } from '../api'
+
+const api = new LobbyAPI()
 
 class Homepage extends React.Component {
-  state = {
-    playAs: '0',
-    gameID: shortid.generate(),
-  }
-
-  startGame() {
-    let gameURL = `/play/${this.state.gameID}/${this.state.playAs}`
-    window.location.href = gameURL + '?inviteLink=1'
+  createGame = () => {
+    console.log('createGame')
+    api.createRoom(2).then(
+      (roomID) => {
+        const history = this.props.history
+        console.log('Created room with roomID = ', roomID)
+        history.push('/lobby/' + roomID)
+      },
+      (err) => {
+        console.log(err)
+      }
+    )
   }
 
   render() {
     return (
       <div>
-        <button onClick={() => this.startGame()}>Create Game</button>
+        <button onClick={() => this.createGame()}>Create Game</button>
       </div>
     )
   }

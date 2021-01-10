@@ -11,6 +11,7 @@ class Sidebar extends React.Component {
       for (let i = 0; i <= 1; i++) {
         scoreArray.push(scores[i][color])
       }
+      return scoreArray
     })
 
     return scoreArray
@@ -42,9 +43,11 @@ class Sidebar extends React.Component {
               <div></div>
               <h4>Player 0</h4>
               <h4>Player 1</h4>
-              {this.getExpeditionScores(gameover.expeditionScores).map((value, index) => {
-                return <div key={index}>{value}</div>
-              })}
+              {this.getExpeditionScores(gameover.expeditionScores).map(
+                (value, index) => {
+                  return <div key={index}>{value}</div>
+                }
+              )}
               <h4>Totals</h4>
               <h4>{gameover.totalScores[0]}</h4>
               <h4>{gameover.totalScores[1]}</h4>

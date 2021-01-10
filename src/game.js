@@ -152,6 +152,7 @@ const endGame = (G) => {
 }
 
 const LostSummits = {
+  name: 'LostSummits',
   setup: getInitialState,
   playerView: PlayerView.STRIP_SECRETS,
   maxPlayers: 2,
