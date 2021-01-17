@@ -1,16 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
-import { APP_PRODUCTION, GAME_SERVER_URL, WEB_SERVER_URL } from '../config.js'
+import debounce from 'lodash.debounce'
+import { APP_PRODUCTION, GAME_SERVER_URL } from '../config.js'
+import GameSetupView from './game-setup'
+import GameNotFoundView from './not-found'
 import LostSummits from '../game'
 import LostSummitsBoard from '../board'
 import { LobbyAPI } from '../api'
 
 const api = new LobbyAPI()
+
 const server = APP_PRODUCTION
   ? `https://${window.location.hostname}`
   : GAME_SERVER_URL
+
 const LostSummitsClient = Client({
   debug: false,
   game: LostSummits,
@@ -25,7 +29,6 @@ class Match extends React.Component {
     myID: null,
     myName: null,
     myAuthToken: null,
-    copied: false,
   }
 
   componentDidMount() {
@@ -35,7 +38,7 @@ class Match extends React.Component {
 
   async joinMatch(matchID) {
     const history = this.props.history
-    // Get the game to know how many players have joined already.
+
     let players
     try {
       players = await api.whoIsInRoom(matchID)
@@ -53,15 +56,19 @@ class Match extends React.Component {
 
     // look in local storage for player info
     console.log('looking in local storage')
+    myName = localStorage.getItem(`playerName`)
     myID = localStorage.getItem(`playerID for matchID=${matchID}`)
     myAuthToken = localStorage.getItem(
       `playerCredentials for matchID=${matchID}`
     )
 
-    if (myID !== null && myAuthToken !== null) {
+    // if we find items already set in local storage, we update state and move on.
+    // This is likely only going to happen if the page is reloaded.
+    if (myID && myAuthToken && myName) {
       console.log('local storage found')
       const joinedPlayers = players.filter((p) => p.name)
       this.setState({
+        myName: myName,
         myID: myID,
         myAuthToken: myAuthToken,
         joined: joinedPlayers,
@@ -69,21 +76,23 @@ class Match extends React.Component {
       return
     }
 
-    console.log('no local storage found. moving on.')
+    console.log('No local storage found. Setting up player.')
     myID = '0'
     const seatIsOpen = players.some((player, i) => {
       myID = i.toString()
       return !player.hasOwnProperty('name')
     })
 
-    myName = `Player ${parseInt(myID) + 1}`
+    if (!myName) {
+      myName = `Player ${parseInt(myID) + 1}`
+    }
 
     if (!seatIsOpen) {
       alert('This game is full!')
       return
     }
 
-    // Let's actually join the match
+    // Add the player to the match
     api.joinRoom(matchID, myName, myID).then(
       (authToken) => {
         console.log(`Joined room as player ${myID} with username ${myName}`)
@@ -97,10 +106,22 @@ class Match extends React.Component {
           `playerCredentials for matchID=${matchID}`,
           authToken
         )
-        this.getRoomStatus()
+        this.updatePlayerInfo(myName, false)
       },
       (err) => console.log(err)
     )
+  }
+
+  updatePlayerInfo = (newName, ready) => {
+    api.updatePlayer(
+      this.state.matchID,
+      this.state.myID,
+      this.state.myAuthToken,
+      newName,
+      { ready: ready }
+    )
+    localStorage.setItem('playerName', newName)
+    this.getRoomStatus()
   }
 
   getRoomStatus = () => {
@@ -110,10 +131,6 @@ class Match extends React.Component {
         (players) => {
           const joinedPlayers = players.filter((p) => p.name)
           this.setState({ joined: joinedPlayers })
-          console.log(`checking room status: ${joinedPlayers.length} players`)
-          if (joinedPlayers.length === 2) {
-            clearInterval(this.interval)
-          }
         },
         (err) => {
           console.log(`The room does not exist: ${err}`)
@@ -123,90 +140,64 @@ class Match extends React.Component {
     }
   }
 
-  getPlayerStatusDOM = (player, i) => {
-    if (player) {
-      if (player.id === parseInt(this.state.myID)) {
-        return <div key={player.id}>{player.name} - You</div>
-      } else {
-        return <div key={player.id}>{player.name}</div>
-      }
-    } else {
-      return <div key={i}>Waiting for player</div>
-    }
-  }
-
-  copyToClipboard = () => {
-    const el = this.textArea
-    el.select()
-    document.execCommand('copy')
-    this.setState({ copied: true })
+  savedName() {
+    this.setState({ savedName: true })
     setTimeout(
       function () {
-        this.setState({ copied: false })
+        this.setState({ savedName: false })
       }.bind(this),
       2000
     )
   }
 
-  gameFoundView = () => {
-    const { copied, matchID, joined } = this.state
-    const players = [0, 1]
-    const server = APP_PRODUCTION
-      ? `https://${window.location.hostname}`
-      : WEB_SERVER_URL
-
-    return (
-      <>
-        <textarea
-          value={`${server}/match/${matchID}`}
-          ref={(textarea) => (this.textArea = textarea)}
-          readOnly
-        />
-        <button onClick={() => this.copyToClipboard()}>
-          {copied ? 'Copied!' : 'Copy'}
-        </button>
-        <div>
-          {players.map((player, i) => {
-            const joinedPlayer = joined[player]
-            return this.getPlayerStatusDOM(joinedPlayer, i)
-          })}
-        </div>
-      </>
-    )
+  handlePlayerReady = (event) => {
+    this.updatePlayerInfo(this.state.myName, event.target.checked)
   }
 
-  gameNotFoundView = () => {
-    return (
-      <>
-        <div>
-          Sorry! This game does not exist.
-          <br />
-          <Link to="/">Create a new one</Link>
-        </div>
-      </>
-    )
+  handleUpdateName = (event) => {
+    console.log('calling debouncer')
+    this.debouncedNameHandler(event.target.value)
   }
 
-  gameView = () => {
-    const { matchID, joined, myID, myAuthToken } = this.state
-    return (
-      <LostSummitsClient
-        matchID={matchID}
-        players={joined}
-        playerID={String(myID)}
-        credentials={myAuthToken}
-      ></LostSummitsClient>
-    )
-  }
+  debouncedNameHandler = debounce((value) => {
+    console.log('debounced dat shit')
+    this.updatePlayerInfo(value)
+    this.savedName()
+  }, 400)
 
   render() {
-    // This will be replaced with something like "if both players are ready"
-    if (this.state.joined.length === 2) {
-      return this.gameView()
+    const { joined, myID, myName, myAuthToken, matchID, savedName } = this.state
+    let readyPlayers = 0
+    joined.forEach((player) => {
+      player.data && player.data.ready && readyPlayers++
+    })
+    if (readyPlayers === 2) {
+      clearInterval(this.interval)
+      return (
+        <LostSummitsClient
+          matchID={matchID}
+          players={joined}
+          playerID={String(myID)}
+          credentials={myAuthToken}
+        />
+      )
     }
+
     return (
       <div>
-        {this.state.matchID ? this.gameFoundView() : this.gameNotFoundView()}
+        {this.state.matchID ? (
+          <GameSetupView
+            myName={myName}
+            myID={myID}
+            joined={joined}
+            matchID={matchID}
+            onPlayerReady={this.handlePlayerReady}
+            onUpdateName={this.handleUpdateName}
+            savedName={savedName}
+          />
+        ) : (
+          <GameNotFoundView />
+        )}
       </div>
     )
   }

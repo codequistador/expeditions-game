@@ -32,11 +32,12 @@ export class LobbyAPI {
     })
   }
 
-  async updateName(roomID, userid, playerCredentials, newName) {
+  async updatePlayer(roomID, userid, playerCredentials, newName, data) {
     await this.api.updatePlayer(GAME_NAME, roomID, {
       playerID: userid,
       credentials: playerCredentials,
       newName: newName,
+      data: data,
     })
   }
 

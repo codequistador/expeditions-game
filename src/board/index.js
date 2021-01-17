@@ -1,5 +1,4 @@
 import React from 'react'
-import queryString from 'query-string'
 import Hand from '../hand'
 import Deck from '../deck'
 import DiscardPiles from '../discard-piles'
@@ -13,21 +12,6 @@ import {
 } from './styles.js'
 
 class LostSummitsBoard extends React.Component {
-  state = {
-    inviteLinkShow: false,
-    inviteLinkCopied: false,
-  }
-
-  componentDidMount() {
-    const qs = queryString.parse(window.location.search)
-    if (qs.inviteLink === '1') {
-      this.setState({ inviteLinkShow: true })
-      let url = window.location.toString()
-      let clean_url = url.substring(0, url.indexOf('?'))
-      window.history.replaceState({}, document.title, clean_url)
-    }
-  }
-
   render() {
     const { G, ctx, moves, playerID } = this.props
     const players = G.players
