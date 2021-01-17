@@ -1,7 +1,6 @@
 import React from 'react'
 import { Client } from 'boardgame.io/react'
 import { SocketIO } from 'boardgame.io/multiplayer'
-import debounce from 'lodash.debounce'
 import { APP_PRODUCTION, GAME_SERVER_URL } from '../config.js'
 import GameSetupView from './game-setup'
 import GameNotFoundView from './not-found'
@@ -29,6 +28,7 @@ class Match extends React.Component {
     myID: null,
     myName: null,
     myAuthToken: null,
+    iAmReady: false,
   }
 
   componentDidMount() {
@@ -120,6 +120,7 @@ class Match extends React.Component {
       newName,
       { ready: ready }
     )
+
     localStorage.setItem('playerName', newName)
     this.getRoomStatus()
   }
@@ -131,6 +132,7 @@ class Match extends React.Component {
         (players) => {
           const joinedPlayers = players.filter((p) => p.name)
           this.setState({ joined: joinedPlayers })
+          console.log('Checking room status')
         },
         (err) => {
           console.log(`The room does not exist: ${err}`)
@@ -140,33 +142,21 @@ class Match extends React.Component {
     }
   }
 
-  savedName() {
-    this.setState({ savedName: true })
-    setTimeout(
-      function () {
-        this.setState({ savedName: false })
-      }.bind(this),
-      2000
-    )
-  }
-
   handlePlayerReady = (event) => {
     this.updatePlayerInfo(this.state.myName, event.target.checked)
+    this.setState({ iAmReady: event.target.checked })
   }
 
   handleUpdateName = (event) => {
-    console.log('calling debouncer')
-    this.debouncedNameHandler(event.target.value)
+    const newName = event.target.elements[0].value
+    this.updatePlayerInfo(newName, this.state.iAmReady)
+    this.setState({ myName: newName })
+    this.getRoomStatus()
+    event.preventDefault()
   }
 
-  debouncedNameHandler = debounce((value) => {
-    console.log('debounced dat shit')
-    this.updatePlayerInfo(value)
-    this.savedName()
-  }, 400)
-
   render() {
-    const { joined, myID, myName, myAuthToken, matchID, savedName } = this.state
+    const { joined, myID, myName, myAuthToken, matchID } = this.state
     let readyPlayers = 0
     joined.forEach((player) => {
       player.data && player.data.ready && readyPlayers++
@@ -193,7 +183,6 @@ class Match extends React.Component {
             matchID={matchID}
             onPlayerReady={this.handlePlayerReady}
             onUpdateName={this.handleUpdateName}
-            savedName={savedName}
           />
         ) : (
           <GameNotFoundView />

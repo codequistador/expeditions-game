@@ -1,44 +1,39 @@
 import React from 'react'
 import Switch from '@material-ui/core/Switch'
-import TextField from '@material-ui/core/TextField'
 
 class Player extends React.Component {
   state = {
     isEditingName: false,
+    name: this.props.name,
   }
 
   handleStartNameEdit = () => {
     this.setState({ isEditingName: true })
   }
 
+  handleChange = (event) => {
+    this.setState({ name: event.target.value })
+  }
+
+  handleSubmit = (event) => {
+    this.setState({ isEditingName: false })
+    this.props.onUpdateName(event)
+  }
+
   render() {
-    const {
-      id,
-      name,
-      isMe,
-      ready,
-      onPlayerReady,
-      onUpdateName,
-      savedName,
-    } = this.props
+    const { id, name, isMe, ready, onPlayerReady } = this.props
 
     return (
       <div>
         {this.state.isEditingName ? (
-          <TextField
-            label="Your Name"
-            defaultValue={name}
-            variant="outlined"
-            onBlur={() => this.setState({ isEditingName: false })}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                this.setState({ isEditingName: false })
-              }
-            }}
-            onChange={onUpdateName}
-            helperText={savedName && 'Saved'}
-            disabled={!isMe}
-          />
+          <form onSubmit={this.handleSubmit}>
+            <input
+              type="text"
+              value={this.state.name}
+              onChange={this.handleChange}
+            />
+            <button type="submit">Update Name</button>
+          </form>
         ) : (
           <div>
             {name}

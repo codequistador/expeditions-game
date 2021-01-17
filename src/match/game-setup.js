@@ -27,7 +27,7 @@ class GameSetupView extends React.Component {
   }
 
   getPlayerStatusDOM = (player, i) => {
-    const { myID, joined, onPlayerReady, onUpdateName, savedName } = this.props
+    const { myID, joined, onPlayerReady, onUpdateName } = this.props
     const opponentID = myID === '0' ? '1' : '0'
     if (player) {
       if (player.id === parseInt(myID)) {
@@ -39,7 +39,6 @@ class GameSetupView extends React.Component {
             onUpdateName={onUpdateName}
             name={player.name}
             ready={joined[myID].data && joined[myID].data.ready}
-            savedName={savedName}
             isMe
           />
         )
@@ -51,7 +50,6 @@ class GameSetupView extends React.Component {
             onPlayerReady={onPlayerReady}
             onUpdateName={onUpdateName}
             ready={joined[opponentID].data && joined[opponentID].data.ready}
-            savedName={savedName}
             name={player.name}
           />
         )
