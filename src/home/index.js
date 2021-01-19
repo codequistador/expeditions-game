@@ -1,5 +1,8 @@
 import React from 'react'
 import { LobbyAPI } from '../api'
+import { Button } from '../shared-styles'
+import Rules from '../rules'
+import { HomeWrapper, GameTitle } from './styles'
 
 const api = new LobbyAPI()
 
@@ -20,9 +23,13 @@ class Homepage extends React.Component {
 
   render() {
     return (
-      <div>
-        <button onClick={() => this.createGame()}>Create Game</button>
-      </div>
+      <HomeWrapper>
+        <GameTitle>Expeditions Game</GameTitle>
+        <Button size="large" onClick={() => this.createGame()}>
+          Create Game
+        </Button>
+        <Rules />
+      </HomeWrapper>
     )
   }
 }

@@ -50,7 +50,7 @@ const getInitialState = (ctx) => {
   return G
 }
 
-const playCard = (G, ctx, id, card) => {
+const playCard = (G, ctx, id, card, name) => {
   G.info.error = ''
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
@@ -79,9 +79,9 @@ const playCard = (G, ctx, id, card) => {
 
     // Update game state
     currentPlayer.hand = playerHand
-    G.info.lastMove = `Player ${[ctx.currentPlayer].toString()} played a ${
-      card.color
-    } ${card.value !== null ? card.value : card.type}`
+    G.info.lastMove = `${name} played a ${card.color} ${
+      card.value !== null ? card.value : card.type
+    }`
 
     ctx.events.setStage('draw')
   } else {
@@ -89,7 +89,7 @@ const playCard = (G, ctx, id, card) => {
   }
 }
 
-const discard = (G, ctx, id, card) => {
+const discard = (G, ctx, id, card, name) => {
   G.info.error = ''
   const currentPlayer = G.players[ctx.currentPlayer]
   let playerHand = [...currentPlayer.hand]
@@ -104,9 +104,9 @@ const discard = (G, ctx, id, card) => {
 
   // Update game state
   currentPlayer.hand = playerHand
-  G.info.lastMove = `Player ${[ctx.currentPlayer].toString()} discarded a ${
-    card.color
-  } ${card.value != null ? card.value : card.type}`
+  G.info.lastMove = `${name} discarded a ${card.color} ${
+    card.value != null ? card.value : card.type
+  }`
 
   ctx.events.setStage('draw')
 }

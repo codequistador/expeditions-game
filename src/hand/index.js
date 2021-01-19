@@ -10,11 +10,19 @@ class Hand extends React.Component {
       isDrawStage,
       isGameOver,
       moves,
+      myName,
     } = this.props
     return (
       <CardsWrapper>
         <h2>Your Hand</h2>
-        {renderCards(cards, isCurrentPlayer, isDrawStage, isGameOver, moves)}
+        {renderCards(
+          cards,
+          isCurrentPlayer,
+          isDrawStage,
+          isGameOver,
+          moves,
+          myName
+        )}
       </CardsWrapper>
     )
   }
@@ -25,7 +33,8 @@ const renderCards = (
   isCurrentPlayer,
   isDrawStage,
   isGameOver,
-  moves
+  moves,
+  myName
 ) => {
   return cards.map((card, i) => {
     return (
@@ -35,8 +44,8 @@ const renderCards = (
         color={card.color}
         location="hand"
         value={card.type !== 'bet' ? card.value : '$$'}
-        handlePlay={() => moves.playCard(i, card)}
-        handleDiscard={() => moves.discard(i, card)}
+        handlePlay={() => moves.playCard(i, card, myName)}
+        handleDiscard={() => moves.discard(i, card, myName)}
         isCurrentPlayer={isCurrentPlayer}
         isDrawStage={isDrawStage}
         isGameOver={isGameOver}

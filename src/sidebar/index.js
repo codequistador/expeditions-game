@@ -1,6 +1,7 @@
 import React from 'react'
+import Rules from '../rules'
 import { Toast } from '../shared-styles'
-import { SidebarWrapper, ScoresWrapper } from './styles'
+import { SidebarWrapper, ScoresWrapper, RulesButtonWrapper } from './styles'
 
 class Sidebar extends React.Component {
   getExpeditionScores(scores) {
@@ -18,19 +19,32 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const { isCurrentPlayer, playerId, lastMove, error, gameover } = this.props
+    const {
+      isCurrentPlayer,
+      playerId,
+      myName,
+      opponentName,
+      lastMove,
+      error,
+      gameover,
+    } = this.props
 
     return (
       <SidebarWrapper>
         <h2>Player Info</h2>
-        <h4>Player ID: {playerId}</h4>
-        {!gameover && (
-          <h4>
-            {isCurrentPlayer ? "It's your turn!" : "It's your opponent's turn."}
-          </h4>
-        )}
+        <h4>Your Name: {myName}</h4>
+        <h4>Opponent's Name: {opponentName}</h4>
         <h2>Game {gameover ? 'Over!' : 'Info'}</h2>
-        {!gameover && <p>Last Move: {lastMove}.</p>}
+        {!gameover && (
+          <>
+            <h4>
+              {isCurrentPlayer
+                ? "It's your turn!"
+                : `It's ${opponentName}'s turn.`}
+            </h4>
+            <h4>Last Move: {lastMove}.</h4>
+          </>
+        )}
         {gameover && (
           <>
             <h3>
@@ -41,8 +55,8 @@ class Sidebar extends React.Component {
             <h3>Scores</h3>
             <ScoresWrapper>
               <div></div>
-              <h4>Player 0</h4>
-              <h4>Player 1</h4>
+              <h4>{myName}</h4>
+              <h4>{opponentName}</h4>
               {this.getExpeditionScores(gameover.expeditionScores).map(
                 (value, index) => {
                   return <div key={index}>{value}</div>
@@ -54,6 +68,9 @@ class Sidebar extends React.Component {
             </ScoresWrapper>
           </>
         )}
+        <RulesButtonWrapper>
+          <Rules />
+        </RulesButtonWrapper>
         {isCurrentPlayer && error && <Toast variant="alert">{error}</Toast>}
       </SidebarWrapper>
     )

@@ -10,10 +10,12 @@ This is a clone of the awesome card game "Lost Cities". I wrote it for fun and t
 - [x] Set up end of game messages
 - [] Add Rules
 - [x] Better Lobby with player auth
-- [] Figure out how to reset server when a new game is created
+- [x] Figure out how to reset server when a new game is created
 - [] New game flow
 - [] Typescript all the things
-- [] Add the ability for someone to set their name and declare themselves ready
+- [] Style game setup flow
+- [] Play again flow
+- [x] Add the ability for someone to set their name and declare themselves ready
 
 ## Available Scripts
 

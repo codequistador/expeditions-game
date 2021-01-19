@@ -9,6 +9,7 @@ const Button = styled.button`
   border-radius: 6px;
   margin: 4px;
   transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  ${(props) => `${props.size === 'large' && 'padding: 8px 16px'}`};
 
   &:hover {
     background-color: #f6f7f9;
@@ -19,6 +20,13 @@ const Button = styled.button`
     position: relative;
     top: 1px;
     outline: none;
+  }
+
+  &:disabled {
+    color: #a0a5aa;
+    background: #f6f7f9;
+    border-color: #ddd;
+    cursor: not-allowed;
   }
 `
 

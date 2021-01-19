@@ -19,3 +19,8 @@ export const ScoresWrapper = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 8px;
 `
+
+export const RulesButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 16px;
+`

@@ -36,6 +36,10 @@ class Match extends React.Component {
     this.interval = setInterval(this.getRoomStatus, 1000)
   }
 
+  componentWillUnmount() {
+    clearInterval(this.interval)
+  }
+
   async joinMatch(matchID) {
     const history = this.props.history
 
