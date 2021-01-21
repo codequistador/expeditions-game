@@ -6,7 +6,7 @@ import LostSummits from './game'
 const server = Server({ games: [LostSummits] })
 const PORT = process.env.PORT || 8000
 
-const frontEndAppBuildPath = path.resolve(__dirname, './build')
+const frontEndAppBuildPath = path.resolve(__dirname, '../build')
 server.app.use(serve(frontEndAppBuildPath))
 
 server.run(PORT, () => {
