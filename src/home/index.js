@@ -50,6 +50,28 @@ class Homepage extends React.Component {
     )
   }
 
+  renderAvailableGames = (games) => {
+    return (
+      <div>
+        <div className="grid">
+          <h3>Game</h3>
+          <h3>Joined</h3>
+        </div>
+        {games.map((game, i) => (
+          <Game key={i}>
+            <p>Expeditions</p>
+            <p>{game.players[0].name}</p>
+            <p>
+              <Button onClick={() => this.joinGame(game.matchID)}>
+                Join Game
+              </Button>
+            </p>
+          </Game>
+        ))}
+      </div>
+    )
+  }
+
   render() {
     const { games } = this.state
     const availableGames = games.filter(
@@ -63,22 +85,11 @@ class Homepage extends React.Component {
         <GameTitle>Expeditions Game</GameTitle>
         <GamesWrapper>
           <h2>Available Games</h2>
-          <div className="grid">
-            <h3>Game</h3>
-            <h3>Joined</h3>
-          </div>
-
-          {availableGames.map((game, i) => (
-            <Game>
-              <p>Expeditions</p>
-              <p>{game.players[0].name}</p>
-              <p>
-                <Button onClick={() => this.joinGame(game.matchID)}>
-                  Join Game
-                </Button>
-              </p>
-            </Game>
-          ))}
+          {availableGames.length > 0 ? (
+            this.renderAvailableGames(availableGames)
+          ) : (
+            <h3>There are no games available. Create one below!</h3>
+          )}
         </GamesWrapper>
         <Button size="large" onClick={() => this.createGame()}>
           Create New Game
