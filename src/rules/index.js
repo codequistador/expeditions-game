@@ -29,7 +29,7 @@ function Rules() {
   return (
     <div>
       <Button onClick={handleClickOpen} size="large">
-        Read The Rules
+        How to Play / Rules
       </Button>
       <Dialog
         open={open}
@@ -38,7 +38,7 @@ function Rules() {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Rules of the Game</DialogTitle>
+        <DialogTitle id="scroll-dialog-title">How to Play / Rules</DialogTitle>
         <DialogContent dividers>
           <h3>Objective of the game</h3>
           <p>
@@ -134,7 +134,7 @@ function Rules() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} size="large">
-            Close Rules
+            Close
           </Button>
         </DialogActions>
       </Dialog>

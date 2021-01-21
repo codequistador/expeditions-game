@@ -10,6 +10,11 @@ export class LobbyAPI {
     this.api = new LobbyClient({ server: server })
   }
 
+  async listGames() {
+    const { matches } = await this.api.listMatches(GAME_NAME)
+    return matches
+  }
+
   async createRoom(numPlayers) {
     const { matchID } = await this.api.createMatch(GAME_NAME, {
       numPlayers: numPlayers,

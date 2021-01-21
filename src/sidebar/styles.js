@@ -18,6 +18,10 @@ export const ScoresWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 8px;
+
+  button {
+    margin-top: 16px;
+  }
 `
 
 export const RulesButtonWrapper = styled.div`

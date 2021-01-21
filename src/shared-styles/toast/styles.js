@@ -3,7 +3,7 @@ import { colors } from '../../shared-styles'
 
 const enterFromBottom = keyframes`
   0% {
-    bottom: -999px;
+    bottom: -60px;
     opacity: 0
   }
   100% {

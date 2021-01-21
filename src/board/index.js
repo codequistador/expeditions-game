@@ -17,7 +17,6 @@ class LostSummitsBoard extends React.Component {
     const players = G.players
     const myName = this.props.players[playerID].name
     const opponentId = playerID === '1' ? '0' : '1'
-    const opponentName = this.props.players[opponentId].name
     const cardsInDeck = G.deck.length
     const discardPiles = G.discard
     const expeditions = G.expeditions
@@ -32,8 +31,7 @@ class LostSummitsBoard extends React.Component {
       <GameWrapper>
         <Sidebar
           playerId={playerID}
-          myName={myName}
-          opponentName={opponentName}
+          players={this.props.players}
           lastMove={lastMove}
           isCurrentPlayer={isCurrentPlayer}
           error={G.info.error}

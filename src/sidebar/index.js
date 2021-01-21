@@ -1,6 +1,6 @@
 import React from 'react'
 import Rules from '../rules'
-import { Toast } from '../shared-styles'
+import { Button, Toast } from '../shared-styles'
 import { SidebarWrapper, ScoresWrapper, RulesButtonWrapper } from './styles'
 
 class Sidebar extends React.Component {
@@ -22,25 +22,25 @@ class Sidebar extends React.Component {
     const {
       isCurrentPlayer,
       playerId,
-      myName,
-      opponentName,
+      players,
       lastMove,
       error,
       gameover,
     } = this.props
+    const opponentId = playerId === '1' ? '0' : '1'
 
     return (
       <SidebarWrapper>
         <h2>Player Info</h2>
-        <h4>Your Name: {myName}</h4>
-        <h4>Opponent's Name: {opponentName}</h4>
+        <h4>Your Name: {players[playerId].name}</h4>
+        <h4>Opponent's Name: {players[opponentId].name}</h4>
         <h2>Game {gameover ? 'Over!' : 'Info'}</h2>
         {!gameover && (
           <>
             <h4>
               {isCurrentPlayer
                 ? "It's your turn!"
-                : `It's ${opponentName}'s turn.`}
+                : `It's ${players[opponentId].name}'s turn.`}
             </h4>
             <h4>Last Move: {lastMove}.</h4>
           </>
@@ -55,8 +55,8 @@ class Sidebar extends React.Component {
             <h3>Scores</h3>
             <ScoresWrapper>
               <div></div>
-              <h4>{myName}</h4>
-              <h4>{opponentName}</h4>
+              <h4>{players[0].name}</h4>
+              <h4>{players[1].name}</h4>
               {this.getExpeditionScores(gameover.expeditionScores).map(
                 (value, index) => {
                   return <div key={index}>{value}</div>
@@ -66,6 +66,10 @@ class Sidebar extends React.Component {
               <h4>{gameover.totalScores[0]}</h4>
               <h4>{gameover.totalScores[1]}</h4>
             </ScoresWrapper>
+            <br />
+            <Button onClick={() => (window.location = '/')} size="large">
+              Play Again
+            </Button>
           </>
         )}
         <RulesButtonWrapper>
