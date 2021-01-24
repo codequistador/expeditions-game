@@ -46,6 +46,8 @@ export const Label = styled.div`
   align-items: center;
   font-family: 'Mountains of Christmas', cursive;
   font-size: 13em;
+  cursor: default;
+  user-select: none;
   letter-spacing: 0.1em;
   width: 100%;
   height: 100%;
