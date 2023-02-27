@@ -17,6 +17,7 @@ This is a clone of the awesome card game "Lost Cities". I wrote it for fun and t
 - [x] Play again flow
 - [] Typescript all the things
 - [] Cleanup code
+- [] Fix Heroku Deploy
 
 ## Available Scripts
 
